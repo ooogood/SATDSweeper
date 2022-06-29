@@ -1,2 +1,2 @@
 # SATDSweeper
-Self-Admitted Technical Debt Sweeter (Software Development Project)
+Self-Admitted Technical Debt Sweeper (Software Development Project)
