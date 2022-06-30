@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import java.io.IOException;
 
 public class ManageController implements Initializable {
@@ -27,7 +28,8 @@ public class ManageController implements Initializable {
     TableColumn<Comment, String> col_priority;
     @FXML
     TableColumn<Comment, String> col_estimate;
-    
+
+    private ReportWriter rw = new ReportWriter();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,19 +54,26 @@ public class ManageController implements Initializable {
     protected void onGenerateButtonClick() throws IOException {
         ObservableList<Comment> comments = table.getItems();
         //* === test data === */
-        for( Comment c : comments ) {
-            if( c.getMark().isSelected() ) {
-                System.out.println( c.getContent() );
-                System.out.print( "Loc.: " + c.getLocation() );
-                System.out.print( ", Since: " + c.getDate() );
-                System.out.print( ", Prio.: " + c.getPriority().getValue() );
-                System.out.print( ", Est. Time: " + c.getEstimate().getText() );
-                System.out.println( "day(s)" );
-                System.out.println( "===========" );
-            }
-        }
+        // for( Comment c : comments ) {
+        //     if( c.getMark().isSelected() ) {
+        //         System.out.println( c.getContent() );
+        //         System.out.print( "Loc.: " + c.getLocation() );
+        //         System.out.print( ", Since: " + c.getDate() );
+        //         System.out.print( ", Prio.: " + c.getPriority().getValue() );
+        //         System.out.print( ", Est. Time: " + c.getEstimate().getText() );
+        //         System.out.println( "day(s)" );
+        //         System.out.println( "===========" );
+        //     }
+        // }
         /* test data end */
         // todo: generate pdf report and save to desktop.
         System.out.println( "pdf generated!" );
+
+        // generate pdf
+        try {
+            // TODO: Save table information to model and call writer to write
+            // TODO: prompt user for file save location
+            rw.write( "mypdf.pdf" );
+        } catch( Exception e ) { e.printStackTrace(); }
     }
 }
