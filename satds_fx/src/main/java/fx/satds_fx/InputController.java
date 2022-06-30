@@ -1,15 +1,18 @@
 package fx.satds_fx;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.cell.TextFieldListCell;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.io.File;
+import java.io.IOException;
 
 public class InputController implements Initializable {
     @FXML
@@ -47,17 +50,14 @@ public class InputController implements Initializable {
     }
     /* next */
     @FXML
-    protected void onAnalyseButtonClick() {
-        // todo: generate keyword list
-        //       switch to analyse
+    protected void onAnalyseButtonClick() throws IOException {
+        // todo: generate keyword list and send to Model
 
-        /* test code */
-        System.out.print( "source code path: " );
-        System.out.println( tarSrcPath.getText() );
-        ObservableList<String> oblist = keywordList.getItems();
-        for( int i = 0; i < oblist.size(); ++i ) {
-            System.out.println( oblist.get( i ) );
-        }
-        /* test code end */
+        // switch to next scene
+        Stage primary = Main.getPrimeStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("analysing.fxml"));
+        Scene scene = new Scene( fxmlLoader.load() );
+        primary.setScene(scene);
+        primary.show();
     }
 }
