@@ -31,7 +31,7 @@ public class AnalysingController implements Initializable {
         finishSign.setVisible( false );
         loading.setVisible( true );
         next.setDisable( true );
-        // run analysation task
+        // run analysation task in another thread
         Analyser analyser = Model.getInst().getAnalyser();
         analyser.setEndListener( this );
         analyser_thread = new Thread( analyser );

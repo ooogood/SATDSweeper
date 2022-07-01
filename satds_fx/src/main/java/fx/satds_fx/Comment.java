@@ -4,21 +4,30 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 public class Comment {
+	private long id;
 	private CheckBox mark;
 	private String content;
 	private String location;
 	private String date;
 	private PriorityBox priority;
 	private TextField estimate;
-	public Comment( String cont, String loc, String dt ) {
+	public Comment( Long i, String cont, String loc, String dt ) {
+		id = i;
 		mark = new CheckBox();
 		content = new String( cont );
 		location = new String( loc );
 		date = new String( dt );
 		priority = new PriorityBox();
 		estimate = new TextField();
-
 		mark.setSelected( true );
+	}
+	// id getter method
+	public long getId() {
+		return this.id;
+	}
+	// id setter method
+	public void setId( long id ) {
+		this.id = id;
 	}
 	// mark getter method
 	public CheckBox getMark() {

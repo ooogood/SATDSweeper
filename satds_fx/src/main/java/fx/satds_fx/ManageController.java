@@ -6,6 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+
+import java.io.File;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,39 +45,23 @@ public class ManageController implements Initializable {
         col_priority.setCellValueFactory( new PropertyValueFactory<Comment, String>("priority"));
         col_estimate.setCellValueFactory( new PropertyValueFactory<Comment, String>("estimate"));
 
-        // *** test data *** //
-        for( int i = 0; i < 50; ++i ) {
-            table.getItems().add( new Comment("// this is a comment", "Main.java:Ln1", "01/01/1999" ) );
+        CommentDB db = Model.getInst().getDB();
+        for( long i = 0; i < db.size(); ++i ) {
+            table.getItems().add( db.get( i ) );
         }
-        // test data end //
     }
-
 
     /* generate */
     @FXML
     protected void onGenerateButtonClick() throws IOException {
-        ObservableList<Comment> comments = table.getItems();
-        //* === test data === */
-        // for( Comment c : comments ) {
-        //     if( c.getMark().isSelected() ) {
-        //         System.out.println( c.getContent() );
-        //         System.out.print( "Loc.: " + c.getLocation() );
-        //         System.out.print( ", Since: " + c.getDate() );
-        //         System.out.print( ", Prio.: " + c.getPriority().getValue() );
-        //         System.out.print( ", Est. Time: " + c.getEstimate().getText() );
-        //         System.out.println( "day(s)" );
-        //         System.out.println( "===========" );
-        //     }
-        // }
-        /* test data end */
-        // todo: generate pdf report and save to desktop.
-        System.out.println( "pdf generated!" );
-
         // generate pdf
         try {
-            // TODO: Save table information to model and call writer to write
-            // TODO: prompt user for file save location
-            rw.write( "mypdf.pdf" );
+            FileChooser fc = new FileChooser();
+            fc.getExtensionFilters().add(new ExtensionFilter("PDF Files (*.pdf)", "*.pdf"));
+            File selectedDirectory = fc.showSaveDialog( Main.getPrimeStage() );
+            if( selectedDirectory == null ) return;
+            rw.write( selectedDirectory.getAbsolutePath() );
         } catch( Exception e ) { e.printStackTrace(); }
+        System.out.println( "pdf generated!" );
     }
 }

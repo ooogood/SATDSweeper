@@ -18,10 +18,14 @@ public class ReportWriter {
 	private final float pageW = pageSize.getWidth();
 	private final float margin = 50;
 	/** text size and format */
-	private final PDType1Font font = PDType1Font.TIMES_ROMAN;
+	private final PDType1Font titleFont = PDType1Font.TIMES_ROMAN;
+	private final PDType1Font headerFont = PDType1Font.TIMES_ROMAN;
+	private final PDType1Font labelFont = PDType1Font.TIMES_BOLD;
+	private final PDType1Font contentFont = PDType1Font.TIMES_ROMAN;
 	private final int titleFontSize = 24;
 	private final int titleDateFontSize = 10;
 	private final int headerFontSize = 18;
+	private final int labelFontSize = 12;
 	private final int contentFontSize = 12;
 	private final float lineSpacing = 6;
 	// multiply by sizeFactor: turn page width value into Font width value
@@ -29,14 +33,15 @@ public class ReportWriter {
 	private final float titleSizeFactor = (float)(1000.0 / titleFontSize);
 	private final float headerSizeFactor = (float)(1000.0 / headerFontSize);
 	/** table setting */
-	private final float colCommentW = 220;
+	private final float colCommentW = 225;
 	private final float colLocationW = 100;
-	private final float colDateW = 80;
+	private final float colDateW = 70;
 	private final float colPrioW = 30;
 	private final float colEstTimeW = 50;
 	private final int approxMaxCharComment;
 	private final int approxMaxCharLocation;
 	private final int approxMaxCharDate;
+	private final int approxMaxCharPrio;
 	private final int approxMaxCharEstTime;
 	private final float colSpacing = 6;
 	private final String exceedRep = "...";
@@ -46,14 +51,21 @@ public class ReportWriter {
 	PDDocument doc;
 	PDPageContentStream curPageStream;
 	private int curSize;
+	private PDType1Font curFont;
+
 
 	public ReportWriter() {
+		// must assign initial value to these
+		// otherwise cannot new page.
+		curFont = titleFont;
+		curSize = titleFontSize;
 		// calculate maximum maximum char count with whitespace 
 		// (assuming whitespace is the smallest char in all font)
-		float contentSpaceWidth = font.getSpaceWidth() / contentSizeFactor;
+		float contentSpaceWidth = contentFont.getSpaceWidth() / contentSizeFactor;
 		approxMaxCharComment = (int)( colCommentW / contentSpaceWidth );
 		approxMaxCharLocation = (int)( colLocationW / contentSpaceWidth );
 		approxMaxCharDate = (int)( colDateW / contentSpaceWidth );
+		approxMaxCharPrio = (int)( colPrioW / contentSpaceWidth );
 		approxMaxCharEstTime = (int)( colEstTimeW / contentSpaceWidth );
 	}
 
@@ -67,12 +79,12 @@ public class ReportWriter {
 		// todo: maybe wrap adding title into a function
 		// add title
 		String title = "Self-Admitted Technical Debt Report";
-		changeFont(titleFontSize);
-		float titleWidth = font.getStringWidth(title) / titleSizeFactor;
+		changeFont(titleFont, titleFontSize);
+		float titleWidth = titleFont.getStringWidth(title) / titleSizeFactor;
 		curX = (float)(( pageW - titleWidth ) * 0.5);
 		writeSingleLine(title);
 		// add title date
-		changeFont(titleDateFontSize);
+		changeFont(titleFont, titleDateFontSize);
 		SimpleDateFormat formatter= new SimpleDateFormat( "yyyy-MM-dd" );
 		String titleDate = formatter.format( new Date( System.currentTimeMillis() ) );
 		curX = (float)(( pageW + titleWidth ) * 0.5 + 10.0);
@@ -85,14 +97,14 @@ public class ReportWriter {
 		// add header
 		writeHeader( "Selected by keyword" );
 
-		// TODO: read from model
-		// *** test data *** //
-		Comment cmt = new Comment( "// this is a comment hahahahahahahahahahahahahahahahahahahahahhaaha", "Main.java:L11", "01/01/1999" );
-		cmt.getPriority().setValue('W');
-		cmt.getEstimate().setText("2");
-		// test data end //
-		for( int i = 0; i < 50; ++i ) {
-			writeTableSingleRow( cmt );
+		// write labels
+		writeLabels();
+
+		CommentDB db = Model.getInst().getDB();
+		for( long i = 0; i < db.size(); ++i ) {
+			Comment cmt = db.get( i );
+			if( cmt.getMark().isSelected() )
+				writeTableSingleRow( cmt );
 		}
 		curPageStream.stroke();
 		curPageStream.close();
@@ -102,27 +114,27 @@ public class ReportWriter {
 	}
 
 	protected void writeTableSingleRow( Comment cmt ) throws IOException {
-		changeFont(contentFontSize);
+		changeFont(contentFont, contentFontSize);
 		// new line for content
 		curX = margin;
 		advanceHeight( curSize + lineSpacing );
 		// write cotent
-		String trimedContent = fitStringIntoWidth(cmt.getContent(), colCommentW, approxMaxCharComment, font, contentSizeFactor );
+		String trimedContent = fitStringIntoWidth(cmt.getContent(), colCommentW, approxMaxCharComment, contentFont, contentSizeFactor );
 		writeSingleLine(trimedContent);
 		curX += ( colCommentW + colSpacing );
 		// write location
-		String trimedLocation = fitStringIntoWidth(cmt.getLocation(), colLocationW, approxMaxCharLocation, font, contentSizeFactor );
+		String trimedLocation = fitStringIntoWidth(cmt.getLocation(), colLocationW, approxMaxCharLocation, contentFont, contentSizeFactor );
 		writeSingleLine(trimedLocation);
 		curX += ( colLocationW + colSpacing );
 		// write date
-		String trimedDate = fitStringIntoWidth(cmt.getDate(), colDateW, approxMaxCharDate, font, contentSizeFactor );
+		String trimedDate = fitStringIntoWidth(cmt.getDate(), colDateW, approxMaxCharDate, contentFont, contentSizeFactor );
 		writeSingleLine(trimedDate);
 		curX += ( colDateW + colSpacing );
 		// write priority (assume will not exceed width, it has only one char)
 		writeSingleLine(String.valueOf( cmt.getPriority().getValue() ));
 		curX += ( colPrioW + colSpacing );
 		// write est. time
-		String trimedEstTime = fitStringIntoWidth(cmt.getEstimate().getText() + " day(s)", colEstTimeW, approxMaxCharEstTime, font, contentSizeFactor );
+		String trimedEstTime = fitStringIntoWidth(cmt.getEstimate().getText(), colEstTimeW, approxMaxCharEstTime, contentFont, contentSizeFactor );
 		writeSingleLine(trimedEstTime);
 	}
 
@@ -162,13 +174,14 @@ public class ReportWriter {
 		curPageStream = new PDPageContentStream(doc, curPage);
 		curPageStream.setStrokingColor(Color.DARK_GRAY);
 		curPageStream.setLineWidth(1);
-		changeFont( curSize );
+		changeFont( curFont, curSize );
 	}
 
-	protected void changeFont( int size ) throws IOException {
+	protected void changeFont( PDType1Font font, int size ) throws IOException {
 		// assuming all font in the report is the same
 		curSize = size;
-		curPageStream.setFont( font, curSize );
+		curFont = font;
+		curPageStream.setFont( curFont, curSize );
 	}
 
 	protected void writeSingleLine( String text )
@@ -180,11 +193,37 @@ public class ReportWriter {
 	}
 
 	protected void writeHeader( String text ) throws IOException {
-		changeFont(headerFontSize);
+		changeFont(headerFont, headerFontSize);
 		// newline for header
 		curX = margin;
 		advanceHeight( curSize + lineSpacing );
 		writeSingleLine( text );
+	}
+
+	protected void writeLabels() throws IOException {
+		changeFont(labelFont, labelFontSize);
+		// new line for content
+		curX = margin;
+		advanceHeight( curSize + lineSpacing );
+		// write cotent
+		String trimedContent = fitStringIntoWidth( "Comment", colCommentW, approxMaxCharComment, labelFont, contentSizeFactor );
+		writeSingleLine(trimedContent);
+		curX += ( colCommentW + colSpacing );
+		// write location
+		String trimedLocation = fitStringIntoWidth( "Location", colLocationW, approxMaxCharLocation, labelFont, contentSizeFactor );
+		writeSingleLine(trimedLocation);
+		curX += ( colLocationW + colSpacing );
+		// write date
+		String trimedDate = fitStringIntoWidth( "Since", colDateW, approxMaxCharDate, labelFont, contentSizeFactor );
+		writeSingleLine(trimedDate);
+		curX += ( colDateW + colSpacing );
+		// write priority (assume will not exceed width, it has only one char)
+		String trimedPrio = fitStringIntoWidth( "Prio.", colPrioW, approxMaxCharPrio, labelFont, contentSizeFactor );
+		writeSingleLine(trimedPrio);
+		curX += ( colPrioW + colSpacing );
+		// write est. time
+		String trimedEstTime = fitStringIntoWidth("Est. Days", colEstTimeW, approxMaxCharEstTime, labelFont, contentSizeFactor );
+		writeSingleLine(trimedEstTime);
 	}
 
 }
