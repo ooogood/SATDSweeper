@@ -7,6 +7,11 @@ module fx.satds_fx {
     requires org.kordamp.bootstrapfx.core;
     requires org.apache.pdfbox;
     requires java.desktop;
+    requires lombok;
+    requires windmill;
+    requires markdowngenerator;
+    requires com.github.javaparser.core;
+    requires com.github.javaparser.symbolsolver.core;
 
     opens fx.satds_fx to javafx.fxml;
     exports fx.satds_fx;

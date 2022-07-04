@@ -53,6 +53,9 @@ public class InputController implements Initializable {
     protected void onAnalyseButtonClick() throws IOException {
         // todo: generate keyword list and send to Model
 
+        // send target path to analyser
+        Analyser analyser = Model.getInst().getAnalyser();
+        analyser.setTargetPath( tarSrcPath.getText() );
         // switch to next scene
         Stage primary = Main.getPrimeStage();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("analysing.fxml"));
