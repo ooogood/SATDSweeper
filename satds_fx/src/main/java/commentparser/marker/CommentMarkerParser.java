@@ -5,6 +5,7 @@ import commentparser.util.CommentElementUtil;
 import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.javadoc.Javadoc;
+import commentparser.util.NodeUtil;
 
 import java.util.*;
 
@@ -51,6 +52,7 @@ public class CommentMarkerParser {
         }
 
         commentElement.setRange(comment.getRange().orElse(null));
+        commentElement.setLineNum( NodeUtil.getLineNumber( comment ) ); // set line number
 
         if (this.configuration.getCommentMarkerConfiguration().getEnableTags() && comment.isJavadocComment()) {
             List<String> tagValues = CommentElementUtil.getTagValues(this.configuration.getCommentMarkerConfiguration().getTags(), javaDoc.getBlockTags());

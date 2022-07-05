@@ -10,6 +10,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.encoding.WinAnsiEncoding;
 
 public class ReportWriter {
 	/** page setting */
@@ -22,12 +23,12 @@ public class ReportWriter {
 	private final PDType1Font headerFont = PDType1Font.TIMES_ROMAN;
 	private final PDType1Font labelFont = PDType1Font.TIMES_BOLD;
 	private final PDType1Font contentFont = PDType1Font.TIMES_ROMAN;
-	private final int titleFontSize = 24;
-	private final int titleDateFontSize = 10;
-	private final int headerFontSize = 18;
-	private final int labelFontSize = 12;
-	private final int contentFontSize = 12;
-	private final float lineSpacing = 6;
+	private final int titleFontSize = 18;
+	private final int titleDateFontSize = 6;
+	private final int headerFontSize = 12;
+	private final int labelFontSize = 8;
+	private final int contentFontSize = 8;
+	private final float lineSpacing = 4;
 	// multiply by sizeFactor: turn page width value into Font width value
 	private final float contentSizeFactor = (float)(1000.0 / contentFontSize);
 	private final float titleSizeFactor = (float)(1000.0 / titleFontSize);
@@ -118,8 +119,8 @@ public class ReportWriter {
 		// new line for content
 		curX = margin;
 		advanceHeight( curSize + lineSpacing );
-		// write cotent
-		String trimedContent = fitStringIntoWidth(cmt.getContent(), colCommentW, approxMaxCharComment, contentFont, contentSizeFactor );
+		// write cotent (remove special charactors in it first!)
+		String trimedContent = fitStringIntoWidth( removeSpecialChar( cmt.getContent() ), colCommentW, approxMaxCharComment, contentFont, contentSizeFactor );
 		writeSingleLine(trimedContent);
 		curX += ( colCommentW + colSpacing );
 		// write location
@@ -226,4 +227,13 @@ public class ReportWriter {
 		writeSingleLine(trimedEstTime);
 	}
 
+	public static String removeSpecialChar(String test) {
+        StringBuilder b = new StringBuilder();
+        for (int i = 0; i < test.length(); i++) {
+            if (WinAnsiEncoding.INSTANCE.contains(test.charAt(i))) {
+                b.append(test.charAt(i));
+            }
+        }
+        return b.toString();
+    }
 }

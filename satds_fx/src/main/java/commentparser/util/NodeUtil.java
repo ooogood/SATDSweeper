@@ -75,4 +75,8 @@ public class NodeUtil {
         return Optional.empty();
     }
 
+    public static Integer getLineNumber(Node node) {
+        return node.getBegin().map(n -> n.line).orElse(0);
+    }
+
 }

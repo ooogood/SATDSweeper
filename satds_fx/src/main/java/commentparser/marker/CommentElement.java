@@ -13,6 +13,7 @@ public class CommentElement extends MarkerElement {
     private Javadoc javaDoc;
     private Marker parent;
     private String marker;
+    private Integer lineNum;
 
     public CommentElement(String value, Javadoc javaDoc) {
         this.value = value;
@@ -49,6 +50,6 @@ public class CommentElement extends MarkerElement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, marker, getPath());
+        return Objects.hash(value, marker, getPath(), lineNum);
     }
 }

@@ -4,9 +4,10 @@ import commentparser.scanner.adapter.ParseProcessAdapter;
 import commentparser.scanner.adapter.Progress;
 import commentparser.configuration.Configuration;
 import commentparser.visitor.CommentVisitor;
-import commentparser.visitor.MethodVisitor;
+import commentparser.visitor.ClassVisitor;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.symbolsolver.JavaSymbolSolver;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
@@ -28,7 +29,7 @@ import java.util.stream.Stream;
 public class Scanner {
 
     private volatile Configuration configuration;
-    private MethodVisitor methodVisitor = new MethodVisitor();
+    private ClassVisitor classVisitor = new ClassVisitor();
     private CommentVisitor commentVisitor = new CommentVisitor();
 
     public Scanner() {
@@ -68,12 +69,11 @@ public class Scanner {
         //Process each java file
         files.forEach(path -> {
             try {
-                // TODO: get filename + comment location
                 scannerContext.setCurrentPath(path);
                 CompilationUnit compilationUnit = StaticJavaParser.parse(path);
-                compilationUnit.accept(this.methodVisitor, scannerContext);
-                if (!this.configuration.getCommentMarkerConfiguration().getIncludeOnlyWithinMethods()) {
-                    compilationUnit.accept(this.commentVisitor, scannerContext);
+                List<Comment> comments = compilationUnit.getAllContainedComments();
+                for( var cm : comments ) {
+                    commentVisitor.processComments(cm, scannerContext);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -85,42 +85,6 @@ public class Scanner {
         return scannerContext.getCommentStore();
 
     }
-
-    public void parse(ParseProcessAdapter parseProcessAdapter) {
-        CommentStore commentStore = new CommentStore();
-        ScannerContext scannerContext = new ScannerContext(commentStore, configuration);
-
-        Progress progress = new Progress();
-        parseProcessAdapter.onProgress(progress);
-        List<Path> files = getFiles();
-        progress.setCount(files.size());
-        parseProcessAdapter.onProgress(progress);
-
-        files.forEach(path -> {
-            if (!parseProcessAdapter.isCanceled()) {
-                try {
-                    scannerContext.setCurrentPath(path);
-                    CompilationUnit compilationUnit = StaticJavaParser.parse(path);
-                    compilationUnit.accept(methodVisitor, scannerContext);
-                    if (!configuration.getCommentMarkerConfiguration().getIncludeOnlyWithinMethods()) {
-                        compilationUnit.accept(commentVisitor, scannerContext);
-                    }
-                    parseProcessAdapter.onProgress(progress.next());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    parseProcessAdapter.onError(e);
-                }
-            }
-        });
-
-        if (!parseProcessAdapter.isCanceled()) {
-            postProcess(scannerContext);
-            parseProcessAdapter.onSuccess(scannerContext.getCommentStore());
-        } else {
-            parseProcessAdapter.onCancel();
-        }
-    }
-
 
     private void postProcess(ScannerContext context) {
         //Apply inheritance for the created comment collections
