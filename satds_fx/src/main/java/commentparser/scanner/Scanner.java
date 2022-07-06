@@ -1,10 +1,10 @@
 package commentparser.scanner;
 
+import commentparser.marker.CommentElement;
+import commentparser.marker.CommentMarkerParser;
 import commentparser.scanner.adapter.ParseProcessAdapter;
 import commentparser.scanner.adapter.Progress;
 import commentparser.configuration.Configuration;
-import commentparser.visitor.CommentVisitor;
-import commentparser.visitor.ClassVisitor;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.Comment;
@@ -13,6 +13,7 @@ import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
+import commentparser.util.NodeUtil;
 import lombok.Getter;
 
 import java.io.File;
@@ -29,8 +30,6 @@ import java.util.stream.Stream;
 public class Scanner {
 
     private volatile Configuration configuration;
-    private ClassVisitor classVisitor = new ClassVisitor();
-    private CommentVisitor commentVisitor = new CommentVisitor();
 
     public Scanner() {
         this(new Configuration());
@@ -73,7 +72,7 @@ public class Scanner {
                 CompilationUnit compilationUnit = StaticJavaParser.parse(path);
                 List<Comment> comments = compilationUnit.getAllContainedComments();
                 for( var cm : comments ) {
-                    commentVisitor.processComments(cm, scannerContext);
+                    processComments(cm, scannerContext);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -105,4 +104,17 @@ public class Scanner {
         return files;
     }
 
+    private void processComments(Comment comment, ScannerContext arg) {
+        if (NodeUtil.isInBoundaries(arg.getConfiguration(), comment) ) {
+            CommentMarkerParser commentMarkerParser = new CommentMarkerParser(arg.getConfiguration(), arg.getConfiguration().getCommentMarkerConfiguration().getIncludeWithoutMarker());
+            CommentElement commentElement = commentMarkerParser.parse(comment);
+            if (commentElement != null) {
+                // commentElement.setParent(marker);
+                commentElement.setPath(arg.getCurrentPath());
+                commentElement.setRange(comment.getRange().orElse(null));
+                commentElement.setNodeDeclaration(comment.getCommentedNode().orElse(null));
+                arg.getCommentStore().addComment(arg.getConfiguration().getGroupMarkerConfiguration().getDefaultGroupName(), commentElement);
+            }
+        }
+    }
 }

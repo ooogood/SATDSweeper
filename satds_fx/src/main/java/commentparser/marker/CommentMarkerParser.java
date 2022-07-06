@@ -25,7 +25,7 @@ public class CommentMarkerParser {
 
     /**
      * Parse three type of comment (inline comment, block comment, javadoc comment)
-     * Search for comment markers with the given contains, start with and regex configuration.
+     * Search for comment markers with the given contains and regex configuration.
      *
      * @param comment
      * @return Parsed comment
@@ -36,52 +36,23 @@ public class CommentMarkerParser {
         }
 
         CommentElement commentElement;
-        Javadoc javaDoc = null;
         String commentText;
 
-        if (comment.isJavadocComment()) {
-            javaDoc = ((JavadocComment) comment).parse();
-            commentElement = new CommentElement(
-                    javaDoc.getDescription().toText(),
-                    Collections.emptyList(),
-                    javaDoc);
-            commentText = javaDoc.getDescription().toText();
-        } else {
-            commentElement = new CommentElement(comment.getContent(), Collections.emptyList());
-            commentText = comment.getContent();
-        }
-
+        commentText = comment.getContent();
+        commentElement = new CommentElement(commentText, Collections.emptyList());
         commentElement.setRange(comment.getRange().orElse(null));
         commentElement.setLineNum( NodeUtil.getLineNumber( comment ) ); // set line number
 
-        if (this.configuration.getCommentMarkerConfiguration().getEnableTags() && comment.isJavadocComment()) {
-            List<String> tagValues = CommentElementUtil.getTagValues(this.configuration.getCommentMarkerConfiguration().getTags(), javaDoc.getBlockTags());
-            if (!tagValues.isEmpty()) {
-                commentElement.setMarker(null);
-                return commentElement;
-            }
-        }
-
+        // process keywords
         if (this.configuration.getCommentMarkerConfiguration().getEnableContains()) {
             Optional<String> containMarker = this.configuration.getCommentMarkerConfiguration().getContains().stream().filter(commentText::contains).findFirst();
             if (containMarker.isPresent()) {
-                String preparedComment = this.prepareCommentElement(this.configuration.getCommentMarkerConfiguration().getContains(), commentText, false);
-                commentElement.setValue(preparedComment);
                 commentElement.setMarker(containMarker.get());
                 return commentElement;
             }
         }
 
-        if (this.configuration.getCommentMarkerConfiguration().getEnableStartWith()) {
-            Optional<String> startWithMarker = this.configuration.getCommentMarkerConfiguration().getStartWith().stream().filter(commentText::startsWith).findFirst();
-            if (startWithMarker.isPresent()) {
-                String preparedComment = this.prepareCommentElement(this.configuration.getCommentMarkerConfiguration().getStartWith(), commentText, true);
-                commentElement.setValue(preparedComment);
-                commentElement.setMarker(startWithMarker.get());
-                return commentElement;
-            }
-        }
-
+        // process key regex 
         if (this.configuration.getCommentMarkerConfiguration().getRegex() != null) {
             Boolean isMatchWithMarker = commentText.matches(this.configuration.getCommentMarkerConfiguration().getRegex());
             if (isMatchWithMarker) {
@@ -104,40 +75,9 @@ public class CommentMarkerParser {
         if (containMarker.isPresent()) {
             return true;
         }
-        Optional<String> startWithMarker = this.configuration.getCommentMarkerConfiguration().getExcludeStartWith().stream().filter(comment.getContent()::startsWith).findFirst();
-        if (startWithMarker.isPresent()) {
-            return true;
-        }
         if (this.configuration.getCommentMarkerConfiguration().getExcludeRegex() != null) {
             return comment.getContent().matches(this.configuration.getCommentMarkerConfiguration().getExcludeRegex());
         }
         return false;
     }
-
-    /**
-     * Remove markers from the final comment text.
-     *
-     * @param targets
-     * @param comment
-     * @param onlyStart
-     * @return Prepared comment text
-     */
-    private String prepareCommentElement(Set<String> targets, String comment, Boolean onlyStart) {
-        if (comment == null) {
-            comment = "";
-        }
-        if (this.configuration.getCommentMarkerConfiguration().getRemoveMarkers()) {
-            for (String target : targets) {
-                if (onlyStart) {
-                    if (comment.indexOf(target) == 0) {
-                        comment = comment.replace(target, "");
-                    }
-                } else {
-                    comment = comment.replace(target, "");
-                }
-            }
-        }
-        return comment.trim();
-    }
-
 }

@@ -38,19 +38,23 @@ public class Analyser implements Runnable {
 	}
 
 	public void run() {
+		readAllComments( targetPath );
+		// notify analysation end
+		listener.onAnalysingEnd();
+	}
+
+	protected void readAllComments( String path ) {
 		CommentDB db = Model.getInst().getDB();
 
 		// extract comments
 		CommentMarkerConfiguration commentMarkerConfiguration = new CommentMarkerConfiguration()
 							.toBuilder()
 							.includeWithoutMarker(true)
-							.includeOnlyWithinGroup(false)
-							.includeOnlyWithinMethods(false)
 							.build();
 		GroupMarkerConfiguration groupMarkerConfiguration = new GroupMarkerConfiguration();
 		Configuration config = new Configuration()
 							.toBuilder()
-							.baseDirs(Arrays.asList(targetPath))
+							.baseDirs(Arrays.asList( path ))
 							.sourceRoots(Arrays.asList(System.getProperty("user.dir")))
 							.commentMarkerConfiguration(commentMarkerConfiguration)
 							.groupMarkerConfiguration(groupMarkerConfiguration)
@@ -83,8 +87,6 @@ public class Analyser implements Runnable {
 				}
 			}
 		} catch( IOException e ) { e.printStackTrace(); }
-		// notify analysation end
-		listener.onAnalysingEnd();
 	}
 
 	private static final DateTimeFormatter DATE_FORMATTER =
