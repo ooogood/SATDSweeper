@@ -2,8 +2,6 @@ package commentparser.scanner;
 
 import commentparser.marker.CommentElement;
 import commentparser.marker.CommentMarkerParser;
-import commentparser.scanner.adapter.ParseProcessAdapter;
-import commentparser.scanner.adapter.Progress;
 import commentparser.configuration.Configuration;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
@@ -79,16 +77,9 @@ public class Scanner {
             }
         });
 
-        this.postProcess(scannerContext);
-
+        commentStore.sort();
         return scannerContext.getCommentStore();
 
-    }
-
-    private void postProcess(ScannerContext context) {
-        //Apply inheritance for the created comment collections
-        context.getCommentStore().processInheritance();
-        context.getCommentStore().sort();
     }
 
     private List<Path> getFiles() {
@@ -109,11 +100,10 @@ public class Scanner {
             CommentMarkerParser commentMarkerParser = new CommentMarkerParser(arg.getConfiguration(), arg.getConfiguration().getCommentMarkerConfiguration().getIncludeWithoutMarker());
             CommentElement commentElement = commentMarkerParser.parse(comment);
             if (commentElement != null) {
-                // commentElement.setParent(marker);
                 commentElement.setPath(arg.getCurrentPath());
                 commentElement.setRange(comment.getRange().orElse(null));
                 commentElement.setNodeDeclaration(comment.getCommentedNode().orElse(null));
-                arg.getCommentStore().addComment(arg.getConfiguration().getGroupMarkerConfiguration().getDefaultGroupName(), commentElement);
+                arg.getCommentStore().addComment(commentElement.getMarker(), commentElement);
             }
         }
     }

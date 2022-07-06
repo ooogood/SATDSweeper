@@ -16,7 +16,6 @@ import java.util.LinkedHashSet;
 
 import commentparser.configuration.Configuration;
 import commentparser.configuration.CommentMarkerConfiguration;
-import commentparser.configuration.GroupMarkerConfiguration;
 import commentparser.scanner.Scanner;
 import commentparser.scanner.CommentStore;
 import commentparser.marker.CommentElement;
@@ -51,13 +50,11 @@ public class Analyser implements Runnable {
 							.toBuilder()
 							.includeWithoutMarker(true)
 							.build();
-		GroupMarkerConfiguration groupMarkerConfiguration = new GroupMarkerConfiguration();
 		Configuration config = new Configuration()
 							.toBuilder()
 							.baseDirs(Arrays.asList( path ))
 							.sourceRoots(Arrays.asList(System.getProperty("user.dir")))
 							.commentMarkerConfiguration(commentMarkerConfiguration)
-							.groupMarkerConfiguration(groupMarkerConfiguration)
 							.build();
 		Scanner scanner = new Scanner( config );
 		try {

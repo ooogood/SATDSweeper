@@ -20,8 +20,6 @@ public class Configuration {
     @NonNull
     private CommentMarkerConfiguration commentMarkerConfiguration = new CommentMarkerConfiguration();
     @NonNull
-    private GroupMarkerConfiguration groupMarkerConfiguration = new GroupMarkerConfiguration();
-    @NonNull
     private List<String> baseDirs = new ArrayList<>(Arrays.asList(System.getProperty("user.dir")));
     @NonNull
     private List<String> sourceRoots = new ArrayList<>(Arrays.asList("src/main/java"));

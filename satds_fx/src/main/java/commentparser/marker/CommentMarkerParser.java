@@ -1,10 +1,7 @@
 package commentparser.marker;
 
 import commentparser.configuration.Configuration;
-import commentparser.util.CommentElementUtil;
 import com.github.javaparser.ast.comments.Comment;
-import com.github.javaparser.ast.comments.JavadocComment;
-import com.github.javaparser.javadoc.Javadoc;
 import commentparser.util.NodeUtil;
 
 import java.util.*;
@@ -39,7 +36,7 @@ public class CommentMarkerParser {
         String commentText;
 
         commentText = comment.getContent();
-        commentElement = new CommentElement(commentText, Collections.emptyList());
+        commentElement = new CommentElement(commentText);
         commentElement.setRange(comment.getRange().orElse(null));
         commentElement.setLineNum( NodeUtil.getLineNumber( comment ) ); // set line number
 
