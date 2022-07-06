@@ -38,7 +38,6 @@ public class CommentMarkerParser {
         commentText = comment.getContent();
         commentElement = new CommentElement(commentText);
         commentElement.setRange(comment.getRange().orElse(null));
-        commentElement.setLineNum( NodeUtil.getLineNumber( comment ) ); // set line number
 
         // process keywords
         if (this.configuration.getCommentMarkerConfiguration().getEnableContains()) {

@@ -15,7 +15,7 @@ public class CommentMarkerConfiguration {
     private Boolean includeWithoutMarker = false;
 
     @NonNull
-    private Set<String> contains = new HashSet<>(Arrays.asList("cmnt", "TODO", "todo", "@Comment"));
+    private Set<String> contains = new HashSet<>();
     private String regex;
 
     @NonNull
@@ -34,9 +34,13 @@ public class CommentMarkerConfiguration {
             return this;
         }
 
-
         public CommentMarkerConfigurationBuilder addContains(String... text) {
             this.contains.addAll(Arrays.asList(text));
+            return this;
+        }
+
+        public CommentMarkerConfigurationBuilder addContains(List<String> list) {
+            this.contains.addAll(list);
             return this;
         }
 
@@ -48,6 +52,11 @@ public class CommentMarkerConfiguration {
 
         public CommentMarkerConfigurationBuilder addExcludeContains(String... text) {
             this.excludeContains.addAll(Arrays.asList(text));
+            return this;
+        }
+
+        public CommentMarkerConfigurationBuilder addExcludeContains(List<String> list) {
+            this.excludeContains.addAll(list);
             return this;
         }
     }

@@ -29,6 +29,8 @@ public class ManageController implements Initializable {
     @FXML
     TableColumn<Comment, String> col_date;
     @FXML
+    TableColumn<Comment, String> col_keyword;
+    @FXML
     TableColumn<Comment, String> col_priority;
     @FXML
     TableColumn<Comment, String> col_estimate;
@@ -42,6 +44,7 @@ public class ManageController implements Initializable {
         col_content.setCellValueFactory( new PropertyValueFactory<Comment, String>("content"));
         col_location.setCellValueFactory( new PropertyValueFactory<Comment, String>("location"));
         col_date.setCellValueFactory( new PropertyValueFactory<Comment, String>("date"));
+        col_keyword.setCellValueFactory( new PropertyValueFactory<Comment, String>("keyword"));
         col_priority.setCellValueFactory( new PropertyValueFactory<Comment, String>("priority"));
         col_estimate.setCellValueFactory( new PropertyValueFactory<Comment, String>("estimate"));
 

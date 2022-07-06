@@ -9,14 +9,16 @@ public class Comment {
 	private String content;
 	private String location;
 	private String date;
+	private String keyword;
 	private PriorityBox priority;
 	private TextField estimate;
-	public Comment( Long i, String cont, String loc, String dt ) {
+	public Comment( Long i, String cont, String loc, String dt, String kw ) {
 		id = i;
 		mark = new CheckBox();
-		content = new String( cont );
-		location = new String( loc );
-		date = new String( dt );
+		content = cont;
+		location = loc;
+		date = dt;
+		keyword = kw;
 		priority = new PriorityBox();
 		estimate = new TextField();
 		mark.setSelected( true );
@@ -60,6 +62,14 @@ public class Comment {
 	// date setter method
 	public void setDate( String date ) {
 		this.date = date;
+	}
+	// keyword getter method
+	public String getKeyword() {
+		return this.keyword;
+	}
+	// keyword setter method
+	public void setKeyword( String keyword ) {
+		this.keyword = keyword;
 	}
 	// priority getter method
 	public PriorityBox getPriority() {

@@ -56,6 +56,7 @@ public class InputController implements Initializable {
         // send target path to analyser
         Analyser analyser = Model.getInst().getAnalyser();
         analyser.setTargetPath( tarSrcPath.getText() );
+        analyser.setKeywordList( keywordList.getItems() );
         // switch to next scene
         Stage primary = Main.getPrimeStage();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("analysing.fxml"));

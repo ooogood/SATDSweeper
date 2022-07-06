@@ -27,8 +27,4 @@ public class NodeUtil {
         return false;
     }
 
-    public static Integer getLineNumber(Node node) {
-        return node.getBegin().map(n -> n.line).orElse(0);
-    }
-
 }

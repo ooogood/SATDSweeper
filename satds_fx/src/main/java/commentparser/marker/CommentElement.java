@@ -9,7 +9,6 @@ public class CommentElement extends MarkerElement {
 
     private String value;
     private String marker;
-    private Integer lineNum;
 
     public CommentElement(String value) {
         this.value = value;
@@ -27,6 +26,6 @@ public class CommentElement extends MarkerElement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, marker, getPath(), lineNum);
+        return Objects.hash(value, marker, getPath(), getRange().begin.line);
     }
 }

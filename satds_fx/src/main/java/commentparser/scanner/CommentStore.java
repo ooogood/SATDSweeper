@@ -28,12 +28,8 @@ public class CommentStore {
         }
     }
 
+    // sort comments by filname and line number
     public void sort() {
-        comments = comments.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-
         Comparator<CommentElement> commentCompare = Comparator
                 .comparing((CommentElement o1) -> o1.getPath().getFileName())
                 .thenComparing((CommentElement o1) -> o1.getRange().begin.line);

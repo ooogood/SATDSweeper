@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 
 import commentparser.configuration.Configuration;
@@ -25,11 +26,16 @@ public class Analyser implements Runnable {
 	
 	AnalysingController listener;
 	String targetPath;
+	List<String> keywords;
 	public Analyser() {
 	}
 
 	public void setEndListener( AnalysingController ac ) {
 		listener = ac;
+	}
+
+	public void setKeywordList( List<String> list ) {
+		keywords = list;
 	}
 
 	public void setTargetPath( String path ) {
@@ -45,11 +51,13 @@ public class Analyser implements Runnable {
 	protected void readAllComments( String path ) {
 		CommentDB db = Model.getInst().getDB();
 
-		// extract comments
+		// configure marker mechanism
 		CommentMarkerConfiguration commentMarkerConfiguration = new CommentMarkerConfiguration()
 							.toBuilder()
+							.addContains( keywords )
 							.includeWithoutMarker(true)
 							.build();
+		// build overall configuration
 		Configuration config = new Configuration()
 							.toBuilder()
 							.baseDirs(Arrays.asList( path ))
@@ -58,6 +66,7 @@ public class Analyser implements Runnable {
 							.build();
 		Scanner scanner = new Scanner( config );
 		try {
+			// extract comments
 			CommentStore cmtStore = scanner.parse();
 			Map<String, LinkedHashSet<CommentElement>> comments;
 			comments = cmtStore.getComments();
@@ -77,8 +86,9 @@ public class Analyser implements Runnable {
 							lastModified.put( fileName, date );
 						}
 
-						db.insert(ce.getValue(),
-								fileName + ":" + ce.getLineNum(),
+						db.insert( key,
+								ce.getValue(),
+								fileName + ":" + ce.getRange().begin.line,
 								date );
 					}
 				}
