@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class ManageController implements Initializable {
 
@@ -49,8 +50,12 @@ public class ManageController implements Initializable {
         col_estimate.setCellValueFactory( new PropertyValueFactory<Comment, String>("estimate"));
 
         CommentDB db = Model.getInst().getDB();
-        for( long i = 0; i < db.size(); ++i ) {
-            table.getItems().add( db.get( i ) );
+        Set<String> keywordSet = db.getKeywordSet();
+        for( String kw : keywordSet ) {
+            Set<Comment> cms = db.getKeywordGroup( kw );
+            for( Comment cm : cms ) {
+                table.getItems().add( cm );
+            }
         }
     }
 

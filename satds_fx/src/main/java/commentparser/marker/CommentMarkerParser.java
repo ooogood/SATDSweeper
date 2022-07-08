@@ -11,6 +11,8 @@ public class CommentMarkerParser {
     private Configuration configuration;
     private Boolean includeAll = false;
 
+    public static final String DEFAUL_MARKER = "";
+
     public CommentMarkerParser(Configuration configuration, Boolean includeAll) {
         this.configuration = configuration;
         this.includeAll = includeAll;
@@ -38,9 +40,11 @@ public class CommentMarkerParser {
         commentText = comment.getContent();
         commentElement = new CommentElement(commentText);
         commentElement.setRange(comment.getRange().orElse(null));
+        commentElement.setMarker(DEFAUL_MARKER);
 
         // process keywords
         if (this.configuration.getCommentMarkerConfiguration().getEnableContains()) {
+            commentText = commentText.toLowerCase(); // keywords are case-insensitive
             Optional<String> containMarker = this.configuration.getCommentMarkerConfiguration().getContains().stream().filter(commentText::contains).findFirst();
             if (containMarker.isPresent()) {
                 commentElement.setMarker(containMarker.get());

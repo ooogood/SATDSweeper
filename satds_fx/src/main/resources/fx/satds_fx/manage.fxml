@@ -18,7 +18,7 @@
                   <TableColumn fx:id="col_date" prefWidth="108.79998779296875" text="Since" />
                   <TableColumn fx:id="col_keyword" prefWidth="134.4000244140625" text="Keyword" />
                   <TableColumn fx:id="col_priority" prefWidth="63.20001220703125" text="Priority" />
-                  <TableColumn fx:id="col_estimate" prefWidth="76.7999267578125" text="Est. Time" />
+                  <TableColumn fx:id="col_estimate" prefWidth="76.7999267578125" text="Est. Days" />
               </columns>
             </TableView>
          </children>

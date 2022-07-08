@@ -1,16 +1,14 @@
 package fx.satds_fx;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 public class CommentDB {
 	private long id_root = 0;
 	Map<Long, Comment> db;
 	Map<String, LinkedHashSet<Comment>> keywordGroup;
 	public CommentDB() {
-		db = new HashMap<>();
-		keywordGroup = new HashMap<>();
+		db = new TreeMap<>();
+		keywordGroup = new TreeMap<>();
 	}
 	public long size() {
 		return db.size();
@@ -26,7 +24,21 @@ public class CommentDB {
 		keywordGroup.get( kw ).add( cm );
 	}
 	public Comment get( long id ) {
-		return db.get( id );
+		if( db.containsKey( id ) )
+			return db.get( id );
+		else
+			return null;
 	}
+	public void remove( long id ) {
+		if( !db.containsKey(id) ) return;
+		Comment cm = db.get( id );
+		db.remove( id );
+		String kw = cm.getKeyword();
+		keywordGroup.get( kw ).remove( cm );
+	}
+	public Set<Comment> getKeywordGroup( String kw ) {
+		return keywordGroup.get( kw );
+	}
+	public Set<String> getKeywordSet() { return keywordGroup.keySet(); }
 	// TODO: complete db functions.
 }

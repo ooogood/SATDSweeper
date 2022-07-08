@@ -1,5 +1,6 @@
 package fx.satds_fx;
 
+import classifier.trainer.Trainer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,6 +25,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
+//        try {
+//            Trainer.retrain();
+//        } catch ( Exception e ) {e.printStackTrace();}
+
         launch();
     }
 }

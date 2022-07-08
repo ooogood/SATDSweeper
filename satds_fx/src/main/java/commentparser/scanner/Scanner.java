@@ -1,5 +1,6 @@
 package commentparser.scanner;
 
+import com.github.javaparser.ast.comments.JavadocComment;
 import commentparser.marker.CommentElement;
 import commentparser.marker.CommentMarkerParser;
 import commentparser.configuration.Configuration;
@@ -70,6 +71,10 @@ public class Scanner {
                 CompilationUnit compilationUnit = StaticJavaParser.parse(path);
                 List<Comment> comments = compilationUnit.getAllContainedComments();
                 for( var cm : comments ) {
+                    // workaround: ignore javadoc comment because @author will be seen as SATD
+                    // also, you shouldn't write a SATD in a javadoc.
+                    if( cm instanceof JavadocComment )
+                        continue;
                     processComments(cm, scannerContext);
                 }
             } catch (IOException e) {

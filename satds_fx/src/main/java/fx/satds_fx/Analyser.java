@@ -8,18 +8,17 @@ import java.nio.file.attribute.FileTime;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 
 
+import classifier.trainer.Trainer;
 import commentparser.configuration.Configuration;
 import commentparser.configuration.CommentMarkerConfiguration;
+import commentparser.marker.CommentMarkerParser;
 import commentparser.scanner.Scanner;
 import commentparser.scanner.CommentStore;
 import commentparser.marker.CommentElement;
+import org.controlsfx.control.PropertySheet;
 
 
 public class Analyser implements Runnable {
@@ -30,22 +29,27 @@ public class Analyser implements Runnable {
 	public Analyser() {
 	}
 
+	public void run() {
+		readAllComments( targetPath );
+		classifyUnmarkedComments();
+		// notify analysation end
+		listener.onAnalysingEnd();
+	}
+
 	public void setEndListener( AnalysingController ac ) {
 		listener = ac;
 	}
 
 	public void setKeywordList( List<String> list ) {
-		keywords = list;
+		// keywords are case-insensitive
+		keywords = new LinkedList<>();
+		for( String kw : list ) {
+			keywords.add( kw.toLowerCase() );
+		}
 	}
 
 	public void setTargetPath( String path ) {
 		targetPath = path.replace("/", File.separator);
-	}
-
-	public void run() {
-		readAllComments( targetPath );
-		// notify analysation end
-		listener.onAnalysingEnd();
 	}
 
 	protected void readAllComments( String path ) {
@@ -78,6 +82,7 @@ public class Analyser implements Runnable {
 					// filter out empty comments
 					if( !ce.getValue().equals("") ) {
 						String fileName = ce.getPath().getFileName().toString();
+						// get last modified date
 						String date;
 						if( lastModified.containsKey(fileName)) 
 							date = lastModified.get( fileName );
@@ -85,7 +90,7 @@ public class Analyser implements Runnable {
 							date = formatDateTime(Files.readAttributes(ce.getPath(), BasicFileAttributes.class).lastModifiedTime());
 							lastModified.put( fileName, date );
 						}
-
+						// put into db
 						db.insert( key,
 								ce.getValue(),
 								fileName + ":" + ce.getRange().begin.line,
@@ -94,6 +99,18 @@ public class Analyser implements Runnable {
 				}
 			}
 		} catch( IOException e ) { e.printStackTrace(); }
+	}
+
+	// classify comments with no marker
+	protected void classifyUnmarkedComments() {
+		List<Comment> commentList = new ArrayList<>( Model.getInst().getDB().getKeywordGroup(CommentMarkerParser.DEFAUL_MARKER));
+		CommentDB db = Model.getInst().getDB();
+		try {
+			List<Long> tobeRemove = Trainer.classify( commentList );
+			for( Long i : tobeRemove ) {
+				db.remove( commentList.get( i.intValue() ).getId() );
+			}
+		} catch (Exception e ) {e.printStackTrace();}
 	}
 
 	private static final DateTimeFormatter DATE_FORMATTER =

@@ -4,7 +4,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
+import commentparser.marker.CommentMarkerParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -13,12 +15,13 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.encoding.WinAnsiEncoding;
 
 public class ReportWriter {
-	/** page setting */
+	/* page setting */
 	private final PDRectangle pageSize = PDRectangle.A4;
 	private final float pageH = pageSize.getHeight();
 	private final float pageW = pageSize.getWidth();
 	private final float margin = 50;
-	/** text size and format */
+	private final float tabW = 10;
+	/* text size and format */
 	private final PDType1Font titleFont = PDType1Font.TIMES_ROMAN;
 	private final PDType1Font headerFont = PDType1Font.TIMES_ROMAN;
 	private final PDType1Font labelFont = PDType1Font.TIMES_BOLD;
@@ -29,11 +32,13 @@ public class ReportWriter {
 	private final int labelFontSize = 8;
 	private final int contentFontSize = 8;
 	private final float lineSpacing = 4;
+	private final float groupSpacing = 3 * lineSpacing;
+
 	// multiply by sizeFactor: turn page width value into Font width value
 	private final float contentSizeFactor = (float)(1000.0 / contentFontSize);
 	private final float titleSizeFactor = (float)(1000.0 / titleFontSize);
 	private final float headerSizeFactor = (float)(1000.0 / headerFontSize);
-	/** table setting */
+	/* table setting */
 	private final float colCommentW = 225;
 	private final float colLocationW = 100;
 	private final float colDateW = 70;
@@ -46,14 +51,21 @@ public class ReportWriter {
 	private final int approxMaxCharEstTime;
 	private final float colSpacing = 6;
 	private final String exceedRep = "...";
-	/** writing cursor */
+	/* writing cursor */
 	private float curX;
 	private float curY;
 	PDDocument doc;
 	PDPageContentStream curPageStream;
 	private int curSize;
 	private PDType1Font curFont;
-
+	/* counters */
+	private int totalSATDCount;
+	private int totalMCount;
+	private int totalSCount;
+	private int totalCCount;
+	private int totalWCount;
+	private int totalUnratedCount;
+	private double totalEstTime;
 
 	public ReportWriter() {
 		// must assign initial value to these
@@ -71,6 +83,8 @@ public class ReportWriter {
 	}
 
 	public void write( String path ) throws IOException {
+		initialiseCounters();
+
 		doc = new PDDocument();
 		newPage();
 
@@ -78,40 +92,55 @@ public class ReportWriter {
 		curY = pageH - margin;
 
 		// todo: maybe wrap adding title into a function
-		// add title
+		// add report title
 		String title = "Self-Admitted Technical Debt Report";
 		changeFont(titleFont, titleFontSize);
 		float titleWidth = titleFont.getStringWidth(title) / titleSizeFactor;
 		curX = (float)(( pageW - titleWidth ) * 0.5);
 		writeSingleLine(title);
-		// add title date
+		// add date beside report title
 		changeFont(titleFont, titleDateFontSize);
 		SimpleDateFormat formatter= new SimpleDateFormat( "yyyy-MM-dd" );
 		String titleDate = formatter.format( new Date( System.currentTimeMillis() ) );
 		curX = (float)(( pageW + titleWidth ) * 0.5 + 10.0);
 		writeSingleLine(titleDate);
 
-		// spacing between title and content
-		advanceHeight( 2 * lineSpacing );
-
 		// start writing content
-		// add header
-		writeHeader( "Selected by keyword" );
-
-		// write labels
-		writeLabels();
-
-		CommentDB db = Model.getInst().getDB();
-		for( long i = 0; i < db.size(); ++i ) {
-			Comment cmt = db.get( i );
-			if( cmt.getMark().isSelected() )
-				writeTableSingleRow( cmt );
+		Set<String> kwSet = Model.getInst().getDB().getKeywordSet();
+		// first write auto-generated SATDs
+		writeKeywordGroup(CommentMarkerParser.DEFAUL_MARKER);
+		// write other keyword groups
+		for( String kw : kwSet) {
+			if( kw.equals(CommentMarkerParser.DEFAUL_MARKER)) continue;
+			writeKeywordGroup( kw );
 		}
+
+		// write summary
+		writeSummary();
+
+		// close current page and save the document
 		curPageStream.stroke();
 		curPageStream.close();
-
 		doc.save( path );
 		doc.close();
+	}
+
+	protected void writeKeywordGroup( String kw ) throws IOException {
+		CommentDB db = Model.getInst().getDB();
+		// separate each group with spacing
+		advanceHeight( groupSpacing );
+		if( kw.equals(CommentMarkerParser.DEFAUL_MARKER) )
+			writeHeader( "System Identified SATDs" );
+		else
+			writeHeader( "Selected by Keyword: " + kw );
+		writeLabels();
+		Set<Comment> cms = db.getKeywordGroup(kw);
+		for( Comment cm : cms ) {
+			if( cm.getMark().isSelected() ) {
+				writeTableSingleRow( cm );
+				addCommentIntoCount( cm );
+			}
+		}
 	}
 
 	protected void writeTableSingleRow( Comment cmt ) throws IOException {
@@ -236,4 +265,62 @@ public class ReportWriter {
         }
         return b.toString();
     }
+
+	protected void initialiseCounters() {
+		// initialise counters
+		totalSATDCount = 0;
+		totalMCount = 0;
+		totalSCount = 0;
+		totalCCount = 0;
+		totalWCount = 0;
+		totalUnratedCount = 0;
+		totalEstTime = 0.0;
+	}
+
+	protected void addCommentIntoCount( Comment cm ) {
+		++totalSATDCount;
+		try {
+			totalEstTime += Double.valueOf(cm.getEstimate().getText());
+		} catch (NumberFormatException e) {
+			// if cannot parse, do nothing
+		}
+		Character prio = cm.getPriority().getValue();
+		if( prio.equals('M') )
+			++totalMCount;
+		else if( prio.equals('S') )
+			++totalSCount;
+		else if( prio.equals('C') )
+			++totalCCount;
+		else if( prio.equals('W') )
+			++totalWCount;
+		else
+			++totalUnratedCount;
+	}
+
+	protected void writeSummary() throws IOException {
+		advanceHeight( groupSpacing );
+		writeHeader( "Summary" );
+
+		changeFont(contentFont, contentFontSize);
+		// new line for content
+		curX = margin;
+		advanceHeight( curSize + lineSpacing );
+		writeSingleLine( "Total issues: " + String.valueOf(totalSATDCount) );
+		curX = margin + tabW;
+		advanceHeight( curSize + lineSpacing );
+		writeSingleLine( "Must have issues: " + String.valueOf(totalMCount) );
+		advanceHeight( curSize + lineSpacing );
+		writeSingleLine( "Should have issues: " + String.valueOf(totalSCount) );
+		advanceHeight( curSize + lineSpacing );
+		writeSingleLine( "Could have issues: " + String.valueOf(totalCCount) );
+		advanceHeight( curSize + lineSpacing );
+		writeSingleLine( "Would like to have issues: " + String.valueOf(totalWCount) );
+		advanceHeight( curSize + lineSpacing );
+		writeSingleLine( "Unprioritised issues: " + String.valueOf(totalUnratedCount) );
+
+		curX = margin;
+		advanceHeight( curSize + lineSpacing );
+		writeSingleLine( "Total estimated time to finish: " + String.valueOf(totalEstTime) + " day(s)" );
+
+	}
 }

@@ -1,0 +1,3202 @@
+@relation 'technicalDebt'
+
+@attribute Text string
+@attribute class-att {negative,positive}
+
+@data
+
+'ignored ',negative
+'ignored ',negative
+'process data twice ',negative
+'was the same data produced ',negative
+'search string ',negative
+'search string ',negative
+'index longest matching substring ',negative
+'result the lookup ',negative
+'method use substring matches ',negative
+'object invoke method ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'hop line ',negative
+'setmark line ',negative
+'goto line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'call consonantpair line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'name line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call mainsuffix line ',negative
+'line ',negative
+'call consonantpair line ',negative
+'line ',negative
+'call othersuffix line ',negative
+'line ',negative
+'call undouble line ',negative
+'line ',negative
+'test line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'repeat line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'try line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'among line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'unset efound line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'test line ',negative
+'delete line ',negative
+'set efound line ',negative
+'call undouble line ',negative
+'line ',negative
+'call line ',negative
+'and line ',negative
+'not line ',negative
+'literal line ',negative
+'delete line ',negative
+'call undouble line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call enending line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call eending line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'not line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call enending line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'not line ',negative
+'literal line ',negative
+'delete line ',negative
+'call undouble line ',negative
+'line ',negative
+'call line ',negative
+'not line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'call eending line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'boolean test efound line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'among line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call prelude line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'call standardsuffix line ',negative
+'line ',negative
+'call postlude line ',negative
+'line ',negative
+'unset yfound line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'set yfound line ',negative
+'line ',negative
+'repeat line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'set yfound line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'among line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'atlimit line ',negative
+'line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'hop line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'gopast line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'gopast line ',negative
+'delete line ',negative
+'test line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'atmark line ',negative
+'test line ',negative
+'call shortv line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'not line ',negative
+'atlimit line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call line ',negative
+'not line ',negative
+'call shortv line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'atlimit line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'atlimit line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'boolean test yfound line ',negative
+'repeat line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call exception line ',negative
+'not line ',negative
+'hop line ',negative
+'line ',negative
+'line ',negative
+'call prelude line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call stepa line ',negative
+'line ',negative
+'call exception line ',negative
+'line ',negative
+'line ',negative
+'call stepb line ',negative
+'line ',negative
+'call stepc line ',negative
+'line ',negative
+'call step line ',negative
+'line ',negative
+'call step line ',negative
+'line ',negative
+'call step line ',negative
+'line ',negative
+'call step line ',negative
+'line ',negative
+'call postlude line ',negative
+'line ',negative
+'goto line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'goto line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'among line ',negative
+'delete line ',negative
+'line ',negative
+'among line ',negative
+'delete line ',negative
+'line ',negative
+'among line ',negative
+'delete line ',negative
+'among line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'try line ',negative
+'line ',negative
+'and line ',negative
+'line ',negative
+'call long line ',negative
+'literal line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'set endingremoved line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'test line ',negative
+'delete line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'and line ',negative
+'call long line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'goto line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'name line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call markregions line ',negative
+'unset endingremoved line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call particleetc line ',negative
+'line ',negative
+'call possessive line ',negative
+'line ',negative
+'call caseending line ',negative
+'line ',negative
+'call otherendings line ',negative
+'line ',negative
+'line ',negative
+'boolean test endingremoved line ',negative
+'line ',negative
+'call iplural line ',negative
+'line ',negative
+'call tplural line ',negative
+'line ',negative
+'call tidy line ',negative
+'repeat line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'among line ',negative
+'line ',negative
+'next line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'fail line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'fail line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'call line ',negative
+'fail line ',negative
+'line ',negative
+'delete line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'test line ',negative
+'delete line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'test line ',negative
+'among line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'atleast line ',negative
+'atleast line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call prelude line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'and line ',negative
+'line ',negative
+'line ',negative
+'call standardsuffix line ',negative
+'call iverbsuffix line ',negative
+'call verbsuffix line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'call residualsuffix line ',negative
+'line ',negative
+'call undouble line ',negative
+'line ',negative
+'call unaccent line ',negative
+'line ',negative
+'call postlude line ',negative
+'line ',negative
+'test line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'repeat line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'hop line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'try line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'hop line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'not line ',negative
+'literal line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'not line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call prelude line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'call standardsuffix line ',negative
+'line ',negative
+'call postlude line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'among line ',negative
+'next line ',negative
+'setmark line ',negative
+'line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'among line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'hop line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call double line ',negative
+'line ',negative
+'call double line ',negative
+'delete line ',negative
+'call undouble line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'call vending line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call double line ',negative
+'line ',negative
+'call double line ',negative
+'delete line ',negative
+'call undouble line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call instrum line ',negative
+'line ',negative
+'call case line ',negative
+'line ',negative
+'call casespecial line ',negative
+'line ',negative
+'call caseother line ',negative
+'line ',negative
+'call factive line ',negative
+'line ',negative
+'call owned line ',negative
+'line ',negative
+'call singowner line ',negative
+'line ',negative
+'call plurowner line ',negative
+'line ',negative
+'call plural line ',negative
+'line ',negative
+'test line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'repeat line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'next line ',negative
+'setmark line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call prelude line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call attachedpronoun line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call standardsuffix line ',negative
+'call verbsuffix line ',negative
+'line ',negative
+'call vowelsuffix line ',negative
+'line ',negative
+'call postlude line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'hop line ',negative
+'setmark line ',negative
+'goto line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call mainsuffix line ',negative
+'line ',negative
+'call consonantpair line ',negative
+'line ',negative
+'call othersuffix line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'gopast line ',negative
+'delete line ',negative
+'test line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'atmark line ',negative
+'test line ',negative
+'call shortv line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call line ',negative
+'not line ',negative
+'call shortv line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'unset yfound line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'set yfound line ',negative
+'line ',negative
+'repeat line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'set yfound line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call stepa line ',negative
+'line ',negative
+'call stepb line ',negative
+'line ',negative
+'call stepc line ',negative
+'line ',negative
+'call step line ',negative
+'line ',negative
+'call step line ',negative
+'line ',negative
+'call step line ',negative
+'line ',negative
+'call stepa line ',negative
+'line ',negative
+'call stepb line ',negative
+'line ',negative
+'line ',negative
+'boolean test yfound line ',negative
+'repeat line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'next line ',negative
+'setmark line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'literal line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call prelude line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'and line ',negative
+'line ',negative
+'line ',negative
+'call standardsuffix line ',negative
+'call verbsuffix line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'call line ',negative
+'delete line ',negative
+'call residualsuffix line ',negative
+'line ',negative
+'call residualform line ',negative
+'line ',negative
+'call postlude line ',negative
+'line ',negative
+'repeat line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'next line ',negative
+'setmark line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'set line ',negative
+'line ',negative
+'unset line ',negative
+'repeat line ',negative
+'call combosuffix line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'set line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call prelude line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call step line ',negative
+'line ',negative
+'call standardsuffix line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'boolean test line ',negative
+'call verbsuffix line ',negative
+'line ',negative
+'call vowelsuffix line ',negative
+'line ',negative
+'call postlude line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'call adjective line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call perfectivegerund line ',negative
+'line ',negative
+'try line ',negative
+'call reflexive line ',negative
+'line ',negative
+'call adjectival line ',negative
+'call verb line ',negative
+'call noun line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'call derivational line ',negative
+'line ',negative
+'call tidyup line ',negative
+'make new stringbuffer reuse the old one and user ',negative
+'the library keeps reference the buffer returned for example ',negative
+'converting string way which doesnt force copy ',negative
+'the buffer size will not decrease and will risk wasting large ',negative
+'amount memory ',negative
+'thanks wolfram esser for spotting this problem ',negative
+'current string ',negative
+'smaller ',negative
+'has been inspected ',negative
+'only one item ',negative
+'but now need round once more get ',negative
+'inspected this looks messy but actually ',negative
+'the optimal approach ',negative
+'fixme debug message ',negative
+'fixme debug message ',negative
+'findamongb for backwards processing same comments apply ',negative
+'fixme debug message ',negative
+'fixme debug message ',negative
+'replace chars between cbra and cket current the chars ',negative
+'this line could removed ',negative
+'fixme report error somehow ',negative
+'fprintfstderr faulty slice operationn debugz exit ',negative
+'copy the slice into the supplied stringbuffer ',negative
+'copy the slice into the supplied stringbuilder ',negative
+'extern void debugstruct snenv int number int linecount int int limit sizezp number printfd line number linecount number printfd line number linecountlimit for limit zlb printf zbra printf printf zket printf printf limit int zpi printfc printfn ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'next line ',negative
+'setmark line ',negative
+'line ',negative
+'line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'gopast line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'repeat line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'substring line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'delete line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'try line ',negative
+'line ',negative
+'literal line ',negative
+'test line ',negative
+'literal line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'call line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call attachedpronoun line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call standardsuffix line ',negative
+'call yverbsuffix line ',negative
+'call verbsuffix line ',negative
+'line ',negative
+'call residualsuffix line ',negative
+'line ',negative
+'call postlude line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'hop line ',negative
+'setmark line ',negative
+'goto line ',negative
+'gopast line ',negative
+'setmark line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'delete line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'and line ',negative
+'among line ',negative
+'line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'delete line ',negative
+'setlimit line ',negative
+'tomark line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markregions line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call mainsuffix line ',negative
+'line ',negative
+'call consonantpair line ',negative
+'line ',negative
+'call othersuffix line ',negative
+'ignored ',negative
+'ignored ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'goto line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'test line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'test line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'line ',negative
+'test line ',negative
+'literal line ',negative
+'test line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'line ',negative
+'test line ',negative
+'test line ',negative
+'line ',negative
+'next line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'among line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call checkvowelharmony line ',negative
+'among line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'literal line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'set line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markymus line ',negative
+'call markydu line ',negative
+'call markysa line ',negative
+'call markyken line ',negative
+'line ',negative
+'call markcasina line ',negative
+'line ',negative
+'line ',negative
+'call marksunuz line ',negative
+'call marklar line ',negative
+'call markyum line ',negative
+'call marksun line ',negative
+'call markyuz line ',negative
+'call markymus line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markdur line ',negative
+'call markydu line ',negative
+'call markysa line ',negative
+'call markymus line ',negative
+'unset line ',negative
+'line ',negative
+'call marknuz line ',negative
+'line ',negative
+'line ',negative
+'call markydu line ',negative
+'call markysa line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marksunuz line ',negative
+'call markyuz line ',negative
+'call marksun line ',negative
+'call markyum line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call markymus line ',negative
+'line ',negative
+'call markdur line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marksunuz line ',negative
+'call marklar line ',negative
+'call markyum line ',negative
+'call marksun line ',negative
+'call markyuz line ',negative
+'call markymus line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call markki line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markda line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call markpossessives line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'call marknun line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marklari line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markpossessives line ',negative
+'call marksu line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call marknda line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marklari line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'call marksu line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call marknca line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marklari line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markpossessives line ',negative
+'call marksu line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marknda line ',negative
+'call markna line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marklari line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'call marksu line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markndan line ',negative
+'call marknu line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marksu line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'call marklari line ',negative
+'line ',negative
+'line ',negative
+'call markdan line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markpossessives line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marknun line ',negative
+'call markyla line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markpossessives line ',negative
+'call marksu line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call marklari line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markda line ',negative
+'call markyu line ',negative
+'call markya line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markpossessives line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'call markpossessives line ',negative
+'call marksu line ',negative
+'line ',negative
+'delete line ',negative
+'try line ',negative
+'line ',negative
+'line ',negative
+'call marklar line ',negative
+'line ',negative
+'delete line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'substring line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'line ',negative
+'goto line ',negative
+'line ',negative
+'literal line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'atleast line ',negative
+'atleast line ',negative
+'line ',negative
+'gopast line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'gopast line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'test line ',negative
+'line ',negative
+'gopast line ',negative
+'literal line ',negative
+'line ',negative
+'line ',negative
+'line ',negative
+'not line ',negative
+'line ',negative
+'call isreservedword line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'line ',negative
+'backwards line ',negative
+'line ',negative
+'line ',negative
+'call line ',negative
+'boolean test line ',negative
+'line ',negative
+'call stemnounsuffixes line ',negative
+'call postlude line ',negative
