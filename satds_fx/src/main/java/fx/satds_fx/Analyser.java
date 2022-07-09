@@ -133,11 +133,11 @@ public class Analyser implements Runnable {
 
 	// classify comments with no marker
 	protected void classifyUnmarkedComments() {
-		Set<Comment> unmarked = Model.getInst().getDB().getKeywordGroup(CommentMarkerParser.DEFAUL_MARKER);
+		CommentDB db = Model.getInst().getDB();
+		Set<Comment> unmarked = db.getKeywordGroup(CommentMarkerParser.DEFAULT_MARKER);
 		if( unmarked == null ) return;
 		
-		List<Comment> commentList = new ArrayList<>( );
-		CommentDB db = Model.getInst().getDB();
+		List<Comment> commentList = new ArrayList<>( unmarked );
 		try {
 			List<Long> tobeRemove = Trainer.classify( commentList );
 			for( Long i : tobeRemove ) {

@@ -1,7 +1,0 @@
-@relation 'technicalDebt'
-
-@attribute Text string
-@attribute class-att {negative,positive}
-
-@data
-

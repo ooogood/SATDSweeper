@@ -11,7 +11,7 @@ public class CommentMarkerParser {
     private Configuration configuration;
     private Boolean includeAll = false;
 
-    public static final String DEFAUL_MARKER = "";
+    public static final String DEFAULT_MARKER = "";
 
     public CommentMarkerParser(Configuration configuration, Boolean includeAll) {
         this.configuration = configuration;
@@ -40,7 +40,7 @@ public class CommentMarkerParser {
         commentText = comment.getContent();
         commentElement = new CommentElement(commentText);
         commentElement.setRange(comment.getRange().orElse(null));
-        commentElement.setMarker(DEFAUL_MARKER);
+        commentElement.setMarker(DEFAULT_MARKER);
 
         // process keywords
         if (this.configuration.getCommentMarkerConfiguration().getEnableContains()) {

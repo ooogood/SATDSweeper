@@ -39,13 +39,15 @@ public class ReportWriter {
 	private final float titleSizeFactor = (float)(1000.0 / titleFontSize);
 	private final float headerSizeFactor = (float)(1000.0 / headerFontSize);
 	/* table setting */
-	private final float colCommentW = 225;
+	private final float colCommentW = 210;
 	private final float colLocationW = 100;
-	private final float colDateW = 70;
-	private final float colPrioW = 30;
+	private final float colAuthorW = 55;
+	private final float colDateW = 40;
+	private final float colPrioW = 20;
 	private final float colEstTimeW = 50;
 	private final int approxMaxCharComment;
 	private final int approxMaxCharLocation;
+	private final int approxMaxCharAuthor;
 	private final int approxMaxCharDate;
 	private final int approxMaxCharPrio;
 	private final int approxMaxCharEstTime;
@@ -77,6 +79,7 @@ public class ReportWriter {
 		float contentSpaceWidth = contentFont.getSpaceWidth() / contentSizeFactor;
 		approxMaxCharComment = (int)( colCommentW / contentSpaceWidth );
 		approxMaxCharLocation = (int)( colLocationW / contentSpaceWidth );
+		approxMaxCharAuthor = (int)( colAuthorW / contentSpaceWidth );
 		approxMaxCharDate = (int)( colDateW / contentSpaceWidth );
 		approxMaxCharPrio = (int)( colPrioW / contentSpaceWidth );
 		approxMaxCharEstTime = (int)( colEstTimeW / contentSpaceWidth );
@@ -107,13 +110,13 @@ public class ReportWriter {
 
 		// start writing content
 		Set<String> kwSet = Model.getInst().getDB().getKeywordSet();
-		if( kwSet.contains(CommentMarkerParser.DEFAUL_MARKER)) {
+		if( kwSet.contains(CommentMarkerParser.DEFAULT_MARKER)) {
 			// first write auto-generated SATDs
-			writeKeywordGroup(CommentMarkerParser.DEFAUL_MARKER);
+			writeKeywordGroup(CommentMarkerParser.DEFAULT_MARKER);
 		}
 		// write other keyword groups
 		for( String kw : kwSet) {
-			if( kw.equals(CommentMarkerParser.DEFAUL_MARKER)) continue;
+			if( kw.equals(CommentMarkerParser.DEFAULT_MARKER)) continue;
 			writeKeywordGroup( kw );
 		}
 
@@ -129,14 +132,16 @@ public class ReportWriter {
 
 	protected void writeKeywordGroup( String kw ) throws IOException {
 		CommentDB db = Model.getInst().getDB();
+		Set<Comment> cms = db.getKeywordGroup(kw);
+		if( cms == null || cms.size() == 0 ) return;
+
 		// separate each group with spacing
 		advanceHeight( groupSpacing );
-		if( kw.equals(CommentMarkerParser.DEFAUL_MARKER) )
+		if( kw.equals(CommentMarkerParser.DEFAULT_MARKER) )
 			writeHeader( "System Identified SATDs" );
 		else
 			writeHeader( "Selected by Keyword: " + kw );
 		writeLabels();
-		Set<Comment> cms = db.getKeywordGroup(kw);
 		for( Comment cm : cms ) {
 			if( cm.getMark().isSelected() ) {
 				writeTableSingleRow( cm );
@@ -150,7 +155,7 @@ public class ReportWriter {
 		// new line for content
 		curX = margin;
 		advanceHeight( curSize + lineSpacing );
-		// write cotent (remove special charactors in it first!)
+		// write content (remove special characters in it first!)
 		String trimedContent = fitStringIntoWidth( removeSpecialChar( cmt.getContent() ), colCommentW, approxMaxCharComment, contentFont, contentSizeFactor );
 		writeSingleLine(trimedContent);
 		curX += ( colCommentW + colSpacing );
@@ -158,6 +163,10 @@ public class ReportWriter {
 		String trimedLocation = fitStringIntoWidth(cmt.getLocation(), colLocationW, approxMaxCharLocation, contentFont, contentSizeFactor );
 		writeSingleLine(trimedLocation);
 		curX += ( colLocationW + colSpacing );
+		// write author
+		String trimedAuthor = fitStringIntoWidth(cmt.getAuthor(), colAuthorW, approxMaxCharAuthor, contentFont, contentSizeFactor );
+		writeSingleLine(trimedAuthor);
+		curX += ( colAuthorW + colSpacing );
 		// write date
 		String trimedDate = fitStringIntoWidth(cmt.getDate(), colDateW, approxMaxCharDate, contentFont, contentSizeFactor );
 		writeSingleLine(trimedDate);
@@ -245,6 +254,10 @@ public class ReportWriter {
 		String trimedLocation = fitStringIntoWidth( "Location", colLocationW, approxMaxCharLocation, labelFont, contentSizeFactor );
 		writeSingleLine(trimedLocation);
 		curX += ( colLocationW + colSpacing );
+		// write author
+		String trimedAuthor = fitStringIntoWidth( "Author", colAuthorW, approxMaxCharAuthor, labelFont, contentSizeFactor );
+		writeSingleLine(trimedAuthor);
+		curX += ( colAuthorW + colSpacing );
 		// write date
 		String trimedDate = fitStringIntoWidth( "Since", colDateW, approxMaxCharDate, labelFont, contentSizeFactor );
 		writeSingleLine(trimedDate);
