@@ -5,20 +5,21 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.satds_fx.ManageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.satds_fx.ManageController">
     <children>
         <Button layoutX="662.0" layoutY="542.0" mnemonicParsing="false" onAction="#onGenerateButtonClick" prefHeight="26.0" prefWidth="108.0" text="Generate" AnchorPane.bottomAnchor="31.6" AnchorPane.rightAnchor="30.0" />
     <AnchorPane layoutX="20.0" layoutY="18.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="955.0" AnchorPane.bottomAnchor="71.60000000000002" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">
          <children>
             <TableView fx:id="table" prefHeight="607.2" prefWidth="945.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn fx:id="col_mark" prefWidth="30.400021374225616" />
-                <TableColumn fx:id="col_content" prefWidth="549.5999794006348" text="Content" />
-                  <TableColumn fx:id="col_location" prefWidth="174.4000244140625" text="Location" />
-                  <TableColumn fx:id="col_date" prefWidth="108.79998779296875" text="Since" />
-                  <TableColumn fx:id="col_keyword" prefWidth="134.4000244140625" text="Keyword" />
-                  <TableColumn fx:id="col_priority" prefWidth="63.20001220703125" text="Priority" />
-                  <TableColumn fx:id="col_estimate" prefWidth="76.7999267578125" text="Est. Days" />
+                <TableColumn fx:id="col_mark" minWidth="0.0" prefWidth="0.0" />
+                <TableColumn fx:id="col_content" prefWidth="544.0000419616699" text="Content" />
+                  <TableColumn fx:id="col_location" prefWidth="179.20001220703125" text="Location" />
+                  <TableColumn fx:id="col_auth" prefWidth="131.20001220703125" text="Author" />
+                  <TableColumn fx:id="col_date" prefWidth="87.199951171875" text="Since" />
+                  <TableColumn fx:id="col_keyword" prefWidth="119.2000732421875" text="Keyword" />
+                  <TableColumn fx:id="col_priority" prefWidth="70.4000244140625" text="Priority" />
+                  <TableColumn fx:id="col_estimate" prefWidth="104.0001220703125" text="Est. Days" />
               </columns>
             </TableView>
          </children>

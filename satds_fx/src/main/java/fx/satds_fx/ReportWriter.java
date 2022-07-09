@@ -107,8 +107,10 @@ public class ReportWriter {
 
 		// start writing content
 		Set<String> kwSet = Model.getInst().getDB().getKeywordSet();
-		// first write auto-generated SATDs
-		writeKeywordGroup(CommentMarkerParser.DEFAUL_MARKER);
+		if( kwSet.contains(CommentMarkerParser.DEFAUL_MARKER)) {
+			// first write auto-generated SATDs
+			writeKeywordGroup(CommentMarkerParser.DEFAUL_MARKER);
+		}
 		// write other keyword groups
 		for( String kw : kwSet) {
 			if( kw.equals(CommentMarkerParser.DEFAUL_MARKER)) continue;

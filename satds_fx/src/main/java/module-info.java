@@ -13,6 +13,8 @@ module fx.satds_fx {
     requires com.github.javaparser.core;
     requires com.github.javaparser.symbolsolver.core;
     requires weka.stable;
+    requires org.eclipse.jgit;
+
 
     opens fx.satds_fx to javafx.fxml;
     exports fx.satds_fx;

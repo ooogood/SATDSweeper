@@ -3,8 +3,10 @@ package fx.satds_fx;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -18,20 +20,33 @@ import commentparser.marker.CommentMarkerParser;
 import commentparser.scanner.Scanner;
 import commentparser.scanner.CommentStore;
 import commentparser.marker.CommentElement;
-import org.controlsfx.control.PropertySheet;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.blame.BlameResult;
+import org.eclipse.jgit.diff.RawTextComparator;
+import org.eclipse.jgit.lib.PersonIdent;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 
 public class Analyser implements Runnable {
 	
-	AnalysingController listener;
-	String targetPath;
-	List<String> keywords;
+	private AnalysingController listener;
+	private String targetPath;
+	private Git git = null;
+	private SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy/MM/dd" );
+	private List<String> keywords;
 	public Analyser() {
 	}
 
 	public void run() {
+		git = null;
+
+		tryOpenGit();
+
 		readAllComments( targetPath );
+
 		classifyUnmarkedComments();
+
 		// notify analysation end
 		listener.onAnalysingEnd();
 	}
@@ -74,36 +89,54 @@ public class Analyser implements Runnable {
 			CommentStore cmtStore = scanner.parse();
 			Map<String, LinkedHashSet<CommentElement>> comments;
 			comments = cmtStore.getComments();
-			// store last modified date to save file reading time
-			// <file name, last modified date>
-			Map<String, String> lastModified = new LinkedHashMap<>();
+			// store blame result to save blaming time
+			// <path to file, blame result>
+			Map<Path, BlameResult> fileBlameMap = new LinkedHashMap<>();
 			for( String key : comments.keySet() ) {
 				for( CommentElement ce : comments.get(key) ) {
 					// filter out empty comments
-					if( !ce.getValue().equals("") ) {
-						String fileName = ce.getPath().getFileName().toString();
-						// get last modified date
-						String date;
-						if( lastModified.containsKey(fileName)) 
-							date = lastModified.get( fileName );
+					if( ce.getValue().equals("") ) continue;
+					Path filePath = ce.getPath();
+					String date = "";
+					String author = "";
+					int lineNum = ce.getRange().begin.line;
+					/* blame */
+					if( git != null ) {
+						BlameResult br = null;
+						if (fileBlameMap.containsKey(filePath))
+							br = fileBlameMap.get(filePath);
 						else {
-							date = formatDateTime(Files.readAttributes(ce.getPath(), BasicFileAttributes.class).lastModifiedTime());
-							lastModified.put( fileName, date );
+							String relativePath = filePath.toString().replace(
+									targetPath+"\\", "" );
+							br = git.blame().setFilePath( relativePath )
+									.setTextComparator(RawTextComparator.WS_IGNORE_ALL)
+									.call();
+							fileBlameMap.put( filePath, br );
 						}
-						// put into db
-						db.insert( key,
-								ce.getValue(),
-								fileName + ":" + ce.getRange().begin.line,
-								date );
+						// extract info from blame result
+						PersonIdent person = br.getSourceAuthor( lineNum );
+						author = person.getName();
+						date = dateFormat.format(person.getWhen());
 					}
+					/* ***** */
+					// put into db
+					db.insert( key,
+							ce.getValue(),
+							filePath.getFileName().toString() + ":" + lineNum,
+							author,
+							date );
+
 				}
 			}
-		} catch( IOException e ) { e.printStackTrace(); }
+		} catch( IOException | GitAPIException e ) { e.printStackTrace(); }
 	}
 
 	// classify comments with no marker
 	protected void classifyUnmarkedComments() {
-		List<Comment> commentList = new ArrayList<>( Model.getInst().getDB().getKeywordGroup(CommentMarkerParser.DEFAUL_MARKER));
+		Set<Comment> unmarked = Model.getInst().getDB().getKeywordGroup(CommentMarkerParser.DEFAUL_MARKER);
+		if( unmarked == null ) return;
+		
+		List<Comment> commentList = new ArrayList<>( );
 		CommentDB db = Model.getInst().getDB();
 		try {
 			List<Long> tobeRemove = Trainer.classify( commentList );
@@ -124,4 +157,20 @@ public class Analyser implements Runnable {
 
         return localDateTime.format(DATE_FORMATTER);
     }
+
+	protected void tryOpenGit() {
+		git = null;
+		File repo = new File( targetPath + "\\.git" );
+		if( repo.isDirectory() ) {
+			try {
+				git = new Git(new FileRepositoryBuilder()
+						.setGitDir( repo )
+						.build());
+			} catch (IOException e) {
+				// do nothing, repo is null
+				System.out.println("This path does not have .git folder.");
+			}
+		}
+	}
+
 }

@@ -8,15 +8,18 @@ public class Comment {
 	private CheckBox mark;
 	private String content;
 	private String location;
+
+	private String author;
 	private String date;
 	private String keyword;
 	private PriorityBox priority;
 	private TextField estimate;
-	public Comment( Long i, String cont, String loc, String dt, String kw ) {
+	public Comment( Long i, String cont, String loc, String auth, String dt, String kw ) {
 		id = i;
 		mark = new CheckBox();
 		content = cont;
 		location = loc;
+		author = auth;
 		date = dt;
 		keyword = kw;
 		priority = new PriorityBox();
@@ -54,6 +57,14 @@ public class Comment {
 	// location setter method
 	public void setLocation( String location ) {
 		this.location = location;
+	}
+	// author getter method
+	public String getAuthor() {
+		return this.author;
+	}
+	// author setter method
+	public void setAuthor( String author ) {
+		this.author = author;
 	}
 	// date getter method
 	public String getDate() {
