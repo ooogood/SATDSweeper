@@ -1,7 +1,9 @@
 package fx.satds_fx;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,6 +24,9 @@ public class AnalysingController implements Initializable {
     private Label finishSign;
 
     @FXML
+    private Label progressSign;
+
+    @FXML
     private ImageView loading;
 
     private Thread analyser_thread;
@@ -30,16 +35,29 @@ public class AnalysingController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         finishSign.setVisible( false );
         loading.setVisible( true );
+        progressSign.setVisible( true );
         next.setDisable( true );
         // run analysation task in another thread
         Analyser analyser = Model.getInst().getAnalyser();
-        analyser.setEndListener( this );
+        analyser.setProgressListener( this );
         analyser_thread = new Thread( analyser );
         analyser_thread.start();
+    }
+    public void parsingCommentsEnd() {
+        Platform.runLater( ()->{
+            progressSign.setText("classifying comments...");
+        });
+    }
+
+    public void classifyingEnd() {
+        Platform.runLater( ()->{
+            progressSign.setText("blaming comments...");
+        });
     }
 
     public void onAnalysingEnd() {
         loading.setVisible( false );
+        progressSign.setVisible( false );
         finishSign.setVisible( true );
         next.setDisable( false );
     }
@@ -51,6 +69,10 @@ public class AnalysingController implements Initializable {
         Stage primary = Main.getPrimeStage();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("manage.fxml"));
         Scene scene = new Scene( fxmlLoader.load() );
+        // relocate the stage because the next scene is bigger
+        primary.setX(50.0);
+        primary.setY(50.0);
+
         primary.setScene(scene);
         primary.show();
     }

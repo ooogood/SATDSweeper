@@ -3,28 +3,33 @@ package fx.satds_fx;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
+import java.nio.file.Path;
+
 public class Comment {
 	private long id;
 	private CheckBox mark;
 	private String content;
 	private String location;
 
-	private String author;
-	private String date;
+	private String author = "";
+	private String date = "";
 	private String keyword;
 	private PriorityBox priority;
 	private TextField estimate;
-	public Comment( Long i, String cont, String loc, String auth, String dt, String kw ) {
+	private Path path;
+	private int lineNum;
+	public Comment( Long i, String cont, Path pt, int ln, String kw ) {
 		id = i;
 		mark = new CheckBox();
 		content = cont;
-		location = loc;
-		author = auth;
-		date = dt;
+		path = pt;
+		lineNum = ln;
 		keyword = kw;
 		priority = new PriorityBox();
 		estimate = new TextField();
+
 		mark.setSelected( true );
+		location = path.getFileName().toString() + ":" + lineNum;
 	}
 	// id getter method
 	public long getId() {
@@ -97,5 +102,21 @@ public class Comment {
 	// estTime setter method
 	public void setEstimate( TextField estimate ) {
 		this.estimate = estimate;
+	}
+	// path getter method
+	public Path getPath() {
+		return this.path;
+	}
+	// path setter method
+	public void setPath( Path path ) {
+		this.path = path;
+	}
+	// lineNum getter method
+	public int getLineNum() {
+		return this.lineNum;
+	}
+	// lineNum setter method
+	public void setLineNum( int lineNum ) {
+		this.lineNum = lineNum;
 	}
 }

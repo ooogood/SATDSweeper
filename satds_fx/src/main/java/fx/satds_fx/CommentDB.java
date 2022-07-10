@@ -2,6 +2,7 @@ package fx.satds_fx;
 
 import commentparser.marker.CommentMarkerParser;
 
+import java.nio.file.Path;
 import java.util.*;
 
 public class CommentDB {
@@ -15,8 +16,9 @@ public class CommentDB {
 	public long size() {
 		return db.size();
 	}
-	public void insert( String kw, String content, String location, String author, String date ) {
-		Comment cm = new Comment( id_root, content, location, author, date, kw);
+	public void insert(String kw, String content, Path path, int lineNum ) {
+		Comment cm = new Comment( id_root, content, path, lineNum, kw);
+
 		db.put(id_root, cm);
 		++id_root;
 		// add into keyword group

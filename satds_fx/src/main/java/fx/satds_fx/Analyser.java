@@ -39,19 +39,17 @@ public class Analyser implements Runnable {
 	}
 
 	public void run() {
-		git = null;
-
-		tryOpenGit();
-
 		readAllComments( targetPath );
+		listener.parsingCommentsEnd();
 
 		classifyUnmarkedComments();
+		listener.classifyingEnd();
 
-		// notify analysation end
+		blameAllComments();
 		listener.onAnalysingEnd();
 	}
 
-	public void setEndListener( AnalysingController ac ) {
+	public void setProgressListener( AnalysingController ac ) {
 		listener = ac;
 	}
 
@@ -84,54 +82,23 @@ public class Analyser implements Runnable {
 							.commentMarkerConfiguration(commentMarkerConfiguration)
 							.build();
 		Scanner scanner = new Scanner( config );
-		try {
-			// extract comments
-			CommentStore cmtStore = scanner.parse();
-			Map<String, LinkedHashSet<CommentElement>> comments;
-			comments = cmtStore.getComments();
-			// store blame result to save blaming time
-			// <path to file, blame result>
-			Map<Path, BlameResult> fileBlameMap = new LinkedHashMap<>();
-			for( String key : comments.keySet() ) {
-				for( CommentElement ce : comments.get(key) ) {
-					// filter out empty comments
-					if( ce.getValue().equals("") ) continue;
-					Path filePath = ce.getPath();
-					String date = "";
-					String author = "";
-					int lineNum = ce.getRange().begin.line;
-					/* blame */
-					if( git != null ) {
-						BlameResult br = null;
-						if (fileBlameMap.containsKey(filePath))
-							br = fileBlameMap.get(filePath);
-						else {
-							String relativePath = filePath.toString()
-									.replace(targetPath+"\\", "" )
-									.replace("\\", "/"); // git blame take '/' as separator
-							br = git.blame().setFilePath( relativePath )
-									.setTextComparator(RawTextComparator.WS_IGNORE_ALL)
-									.call();
-							fileBlameMap.put( filePath, br );
-						}
-						// extract info from blame result
-						if( br != null ) {
-							PersonIdent person = br.getSourceAuthor(lineNum);
-							author = person.getName();
-							date = dateFormat.format(person.getWhen());
-						}
-					}
-					/* ***** */
-					// put into db
-					db.insert( key,
-							ce.getValue(),
-							filePath.getFileName().toString() + ":" + lineNum,
-							author,
-							date );
 
-				}
+		// extract comments
+		CommentStore cmtStore = scanner.parse();
+		Map<String, LinkedHashSet<CommentElement>> comments = cmtStore.getComments();
+		for( String key : comments.keySet() ) {
+			for( CommentElement ce : comments.get(key) ) {
+				// filter out empty comments
+				if( ce.getValue().equals("") ) continue;
+
+				// put a comment into db
+				db.insert( key,
+						ce.getValue(),
+						ce.getPath(),
+						ce.getRange().begin.line );
+
 			}
-		} catch( GitAPIException e ) { e.printStackTrace(); }
+		}
 	}
 
 	// classify comments with no marker
@@ -161,7 +128,7 @@ public class Analyser implements Runnable {
         return localDateTime.format(DATE_FORMATTER);
     }
 
-	protected void tryOpenGit() {
+	protected boolean tryOpenGit() {
 		git = null;
 		File repo = new File( targetPath + "\\.git" );
 		if( repo.isDirectory() ) {
@@ -170,10 +137,59 @@ public class Analyser implements Runnable {
 						.setGitDir( repo )
 						.build());
 			} catch (IOException e) {
-				// do nothing, repo is null
-				System.out.println("This path does not have .git folder.");
+				e.printStackTrace();
+			}
+			return true;
+		}
+		else {
+			// do nothing, repo is null
+			System.out.println("This path does not have .git folder.");
+			return false;
+		}
+	}
+
+	protected void blameAllComments() {
+		git = null;
+		if( !tryOpenGit() ) return;
+
+		CommentDB db = Model.getInst().getDB();
+		Set<String> kwSet = db.getKeywordSet();
+
+		// store blame result to save blaming time
+		// <path to file, blame result>
+		Map<Path, BlameResult> fileBlameMap = new LinkedHashMap<>();
+		for( String kw : kwSet ) {
+			Set<Comment> comments = db.getKeywordGroup( kw );
+			for( Comment cm : comments ) {
+				blameComment( cm, fileBlameMap );
 			}
 		}
+
+	}
+	protected void blameComment( Comment cm, Map<Path, BlameResult> fileBlameMap) {
+		try {
+			Path filePath = cm.getPath();
+			if( git != null ) {
+				BlameResult br = null;
+				if (fileBlameMap.containsKey(filePath))
+					br = fileBlameMap.get(filePath);
+				else {
+					String relativePath = filePath.toString()
+							.replace(targetPath+"\\", "" )
+							.replace("\\", "/"); // git blame takes '/' as separator
+					br = git.blame().setFilePath( relativePath )
+							.setTextComparator(RawTextComparator.WS_IGNORE_ALL)
+							.call();
+					fileBlameMap.put( filePath, br );
+				}
+				// extract info from blame result
+				if( br != null ) {
+					PersonIdent person = br.getSourceAuthor( cm.getLineNum() );
+					cm.setAuthor( person.getName() );
+					cm.setDate( dateFormat.format(person.getWhen()) );
+				}
+			}
+		} catch( GitAPIException e ) { e.printStackTrace(); }
 	}
 
 }
