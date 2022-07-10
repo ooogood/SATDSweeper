@@ -1,5 +1,8 @@
 package commentparser.scanner;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseException;
+import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.comments.JavadocComment;
 import commentparser.marker.CommentElement;
 import commentparser.marker.CommentMarkerParser;
@@ -57,7 +60,7 @@ public class Scanner {
      * @return CommentStore
      * @throws IOException
      */
-    public CommentStore parse() throws IOException {
+    public CommentStore parse() {
 
         List<Path> files = getFiles();
 
@@ -68,17 +71,24 @@ public class Scanner {
         files.forEach(path -> {
             try {
                 scannerContext.setCurrentPath(path);
-                CompilationUnit compilationUnit = StaticJavaParser.parse(path);
-                List<Comment> comments = compilationUnit.getAllContainedComments();
-                for( var cm : comments ) {
-                    // workaround: ignore javadoc comment because @author will be seen as SATD
-                    // also, you shouldn't write a SATD in a javadoc.
-                    if( cm instanceof JavadocComment )
-                        continue;
-                    processComments(cm, scannerContext);
+                JavaParser jp = new JavaParser();
+                ParseResult<CompilationUnit> parseResult = jp.parse( path );
+                if( !parseResult.isSuccessful() ) {
+                    System.out.println("Cannot parse this file: " + path.toString() );
+                }
+                else {
+                    CompilationUnit compilationUnit = parseResult.getResult().get();
+                    List<Comment> comments = compilationUnit.getAllContainedComments();
+                    for (var cm : comments) {
+                        // workaround: ignore javadoc comment because @author will be seen as SATD
+                        // also, you shouldn't write a SATD in a javadoc.
+                        if (cm instanceof JavadocComment)
+                            continue;
+                        processComments(cm, scannerContext);
+                    }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Cannot parse this file: " + path.toString() );
             }
         });
 

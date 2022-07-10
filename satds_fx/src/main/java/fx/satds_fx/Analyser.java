@@ -106,17 +106,20 @@ public class Analyser implements Runnable {
 						if (fileBlameMap.containsKey(filePath))
 							br = fileBlameMap.get(filePath);
 						else {
-							String relativePath = filePath.toString().replace(
-									targetPath+"\\", "" );
+							String relativePath = filePath.toString()
+									.replace(targetPath+"\\", "" )
+									.replace("\\", "/"); // git blame take '/' as separator
 							br = git.blame().setFilePath( relativePath )
 									.setTextComparator(RawTextComparator.WS_IGNORE_ALL)
 									.call();
 							fileBlameMap.put( filePath, br );
 						}
 						// extract info from blame result
-						PersonIdent person = br.getSourceAuthor( lineNum );
-						author = person.getName();
-						date = dateFormat.format(person.getWhen());
+						if( br != null ) {
+							PersonIdent person = br.getSourceAuthor(lineNum);
+							author = person.getName();
+							date = dateFormat.format(person.getWhen());
+						}
 					}
 					/* ***** */
 					// put into db
@@ -128,7 +131,7 @@ public class Analyser implements Runnable {
 
 				}
 			}
-		} catch( IOException | GitAPIException e ) { e.printStackTrace(); }
+		} catch( GitAPIException e ) { e.printStackTrace(); }
 	}
 
 	// classify comments with no marker
