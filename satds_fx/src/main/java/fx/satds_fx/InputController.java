@@ -31,8 +31,9 @@ public class InputController implements Initializable {
     protected void onBrowseTarSrcButtonClick() {
         // get directory path for target source code
         DirectoryChooser dc = new DirectoryChooser();
-        File selectedDirectory = dc.showDialog( Main.getPrimeStage() ); 
-        tarSrcPath.setText( selectedDirectory.getAbsolutePath() );
+        File selectedDirectory = dc.showDialog( Main.getPrimeStage() );
+        if( selectedDirectory != null )
+            tarSrcPath.setText( selectedDirectory.getAbsolutePath() );
     }
 
     /* keyword list callback */
