@@ -28,7 +28,8 @@ public class Document implements Comparable<Document>{
 	}
 
 	public Document(String content){
-		this.content = content;		
+		this.content = content;
+		// tokenisation
 		this.words=WordSplit.split(content);
 		
 		//build term frequency

@@ -41,6 +41,31 @@ public class DataReader {
 		FileUtil.writeLinesToFile(lines, outputFilePath);
 
 	}
+	// output column format training data for coreNLP
+	public static void outputColumnData(List<Document> comments, String outputFilePath) {
+		// notice: here we assume positive class is SATD
+
+		// arff declare info
+		List<String> lines = new ArrayList<String>();
+
+		for (Document doc : comments) {
+			String tmp = "";
+			if (doc.getLabel().equals("WITHOUT_CLASSIFICATION")) {
+				tmp = tmp + "0\t";// negative comments
+
+			} else {
+				tmp = tmp + "1\t";
+
+			}
+			for (String word : doc.getWords())
+				tmp = tmp + word + " ";
+
+			lines.add(tmp);
+		}
+
+		FileUtil.writeLinesToFile(lines, outputFilePath);
+
+	}
 
 	public static List<Document> selectProject(List<Document> comments, Set<String> projectName) {
 

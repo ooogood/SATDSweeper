@@ -55,16 +55,32 @@ public class Trainer {
 			String trainingDataPath = rscdir + "traindata\\tmpTrainingData.arff";
 			DataReader.outputArffData(trainDoc, trainingDataPath);
 
+//			// put data into column format for coreNLP classifier
+//			String columnDataPath = rscdir + "traindata\\" + projects.get(source) + ".train";
+//			DataReader.outputColumnData(trainDoc, columnDataPath);
+
 			// get StringToWordVector object
+			/* Converts string attributes into a set of numeric attributes representing word
+			   occurrence information from the text contained in the strings. */
 			StringToWordVector stw = new StringToWordVector(100000);
+			// stw output word counts, rather than 0/1 representing appeared or not
 			stw.setOutputWordCounts(true);
+			// stw transforms word frequency into: fij*log(num of Docs/num of Docs with word i)
+			/* IDF: Inverse Document Frequency
+			    How common or rare a word is. */
 			stw.setIDFTransform(true);
+			// stw transforms word frequency into: log(1+fij)
+			/* TF: Term Frequency
+			    How frequently does a word appear in a document. */
 			stw.setTFTransform(true);
+			// stw uses SnowballStemmer
 			SnowballStemmer stemmer = new SnowballStemmer();
 			stw.setStemmer(stemmer);
+			// stw filter the stopwords
 			WordsFromFile stopwords = new WordsFromFile();
 			stopwords.setStopwords(new File(rscdir + "traindata\\stopwords.txt"));
 			stw.setStopwordsHandler(stopwords);
+			// filter the training data to create dictionary
 			Instances trainSet = DataSource.read(trainingDataPath);
 			stw.setInputFormat(trainSet);
 			trainSet = Filter.useFilter(trainSet, stw);
@@ -107,17 +123,21 @@ public class Trainer {
 		projects.add("jruby-1.4.0");
 		projects.add("sql12");
 
+		// read comments, tokenize and put the results are in Document.words
 		List<Document> targetDoc = DataReader.readComments( commentList );
+		// put tokens into arff file
 		String targetDataPath = rscdir + "traindata\\targetData.arff";
 		DataReader.outputArffData(targetDoc, targetDataPath);
 
+		// read arff file as Instances
 		Instances tmp = DataSource.read(targetDataPath);
 		tmp.setClassIndex(1);
 		EnsembleLearner eLearner = new EnsembleLearner(tmp);
 
+		// go through each classifier and get vote
 		for (int source = 0; source < projects.size(); source++) {
-			// assert: the following process will not change .arff file
-			// string to word vector (both for training and testing data)
+			// string to word vector
+			// the stw contains stopwords and stemmer
 			Instances tarSet = DataSource.read(targetDataPath);
 			StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\" + projects.get(source) + ".stw");
 			tarSet = Filter.useFilter(tarSet, stw);
