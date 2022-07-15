@@ -1,4 +1,4 @@
-package commentparser.configuration;
+package commentprocessor.configuration;
 
 import lombok.*;
 
@@ -19,9 +19,9 @@ public class Configuration {
 
     @NonNull
     private CommentMarkerConfiguration commentMarkerConfiguration = new CommentMarkerConfiguration();
+    // path can be a local dir or remote url
     @NonNull
-    private List<String> baseDirs = new ArrayList<>(Arrays.asList(System.getProperty("user.dir")));
+    private List<String> path = new ArrayList<>(Arrays.asList(System.getProperty("user.dir")));
     @NonNull
     private List<String> sourceRoots = new ArrayList<>(Arrays.asList("src/main/java"));
-
 }

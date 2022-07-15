@@ -1,7 +1,5 @@
 package fx.satds_fx;
 
-import commentparser.marker.CommentMarkerParser;
-
 import java.nio.file.Path;
 import java.util.*;
 

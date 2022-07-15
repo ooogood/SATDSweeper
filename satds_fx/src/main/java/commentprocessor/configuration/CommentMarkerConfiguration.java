@@ -1,4 +1,4 @@
-package commentparser.configuration;
+package commentprocessor.configuration;
 
 import lombok.*;
 

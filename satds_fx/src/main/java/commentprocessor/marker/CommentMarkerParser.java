@@ -1,8 +1,7 @@
-package commentparser.marker;
+package commentprocessor.marker;
 
-import commentparser.configuration.Configuration;
+import commentprocessor.configuration.Configuration;
 import com.github.javaparser.ast.comments.Comment;
-import commentparser.util.NodeUtil;
 
 import java.util.*;
 

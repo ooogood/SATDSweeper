@@ -1,7 +1,6 @@
-package commentparser.scanner;
+package commentprocessor.scanner;
 
-import commentparser.configuration.Configuration;
-import commentparser.scanner.CommentStore;
+import commentprocessor.configuration.Configuration;
 import lombok.*;
 
 import java.nio.file.Path;

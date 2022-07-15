@@ -1,4 +1,4 @@
-package commentparser.marker;
+package commentprocessor.marker;
 
 import lombok.Data;
 

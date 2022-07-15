@@ -2,9 +2,7 @@ package fx.satds_fx;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -14,12 +12,14 @@ import java.util.*;
 
 
 import classifier.trainer.Trainer;
-import commentparser.configuration.Configuration;
-import commentparser.configuration.CommentMarkerConfiguration;
-import commentparser.marker.CommentMarkerParser;
-import commentparser.scanner.Scanner;
-import commentparser.scanner.CommentStore;
-import commentparser.marker.CommentElement;
+import commentprocessor.configuration.Configuration;
+import commentprocessor.configuration.CommentMarkerConfiguration;
+import commentprocessor.marker.CommentMarkerParser;
+import commentprocessor.scanner.LocalRepoScanner;
+import commentprocessor.scanner.RemoteRepoScanner;
+import commentprocessor.scanner.Scanner;
+import commentprocessor.scanner.CommentStore;
+import commentprocessor.marker.CommentElement;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.blame.BlameResult;
@@ -32,20 +32,24 @@ public class Analyser implements Runnable {
 	
 	private AnalysingController listener;
 	private String targetPath;
-	private Git git = null;
-	private SimpleDateFormat dateFormat = new SimpleDateFormat( "yyyy/MM/dd" );
+	private String branch = "master";
+	// sourceType 0: local file, 1: github remote
+	private int sourceType = 0;
 	private List<String> keywords;
+	private	Scanner scanner = null;
 	public Analyser() {
 	}
 
 	public void run() {
-		readAllComments( targetPath );
+		initScanner();
+
+		readAllComments();
 		listener.parsingCommentsEnd();
 
 		classifyUnmarkedComments();
 		listener.classifyingEnd();
 
-		blameAllComments();
+		scanner.blameAllComments( Model.getInst().getDB() );
 		listener.onAnalysingEnd();
 	}
 
@@ -62,29 +66,31 @@ public class Analyser implements Runnable {
 	}
 
 	public void setTargetPath( String path ) {
-		targetPath = path.replace("/", File.separator);
+		targetPath = path;
+		if( targetPath.startsWith("http") && targetPath.endsWith(".git") )
+			sourceType = 1;
+		else {
+			sourceType = 0;
+			targetPath = path.replace("/", File.separator);
+		}
+	}
+	public void setBranch( String bch ) {
+		branch = bch;
+	}
+	protected void initScanner() {
+		if( sourceType == 1 )
+			scanner = new RemoteRepoScanner( targetPath, branch, keywords );
+		else
+			scanner = new LocalRepoScanner( targetPath, branch, keywords );
 	}
 
-	protected void readAllComments( String path ) {
-		CommentDB db = Model.getInst().getDB();
 
-		// configure marker mechanism
-		CommentMarkerConfiguration commentMarkerConfiguration = new CommentMarkerConfiguration()
-							.toBuilder()
-							.addContains( keywords )
-							.includeWithoutMarker(true)
-							.build();
-		// build overall configuration
-		Configuration config = new Configuration()
-							.toBuilder()
-							.baseDirs(Arrays.asList( path ))
-							.sourceRoots(Arrays.asList(System.getProperty("user.dir")))
-							.commentMarkerConfiguration(commentMarkerConfiguration)
-							.build();
-		Scanner scanner = new Scanner( config );
-
+	protected void readAllComments() {
 		// extract comments
 		CommentStore cmtStore = scanner.parse();
+
+		// store all comments into db
+		CommentDB db = Model.getInst().getDB();
 		Map<String, LinkedHashSet<CommentElement>> comments = cmtStore.getComments();
 		for( String key : comments.keySet() ) {
 			for( CommentElement ce : comments.get(key) ) {
@@ -127,69 +133,5 @@ public class Analyser implements Runnable {
 
         return localDateTime.format(DATE_FORMATTER);
     }
-
-	protected boolean tryOpenGit() {
-		git = null;
-		File repo = new File( targetPath + "\\.git" );
-		if( repo.isDirectory() ) {
-			try {
-				git = new Git(new FileRepositoryBuilder()
-						.setGitDir( repo )
-						.build());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return true;
-		}
-		else {
-			// do nothing, repo is null
-			System.out.println("This path does not have .git folder.");
-			return false;
-		}
-	}
-
-	protected void blameAllComments() {
-		git = null;
-		if( !tryOpenGit() ) return;
-
-		CommentDB db = Model.getInst().getDB();
-		Set<String> kwSet = db.getKeywordSet();
-
-		// store blame result to save blaming time
-		// <path to file, blame result>
-		Map<Path, BlameResult> fileBlameMap = new LinkedHashMap<>();
-		for( String kw : kwSet ) {
-			Set<Comment> comments = db.getKeywordGroup( kw );
-			for( Comment cm : comments ) {
-				blameComment( cm, fileBlameMap );
-			}
-		}
-
-	}
-	protected void blameComment( Comment cm, Map<Path, BlameResult> fileBlameMap) {
-		try {
-			Path filePath = cm.getPath();
-			if( git != null ) {
-				BlameResult br = null;
-				if (fileBlameMap.containsKey(filePath))
-					br = fileBlameMap.get(filePath);
-				else {
-					String relativePath = filePath.toString()
-							.replace(targetPath+"\\", "" )
-							.replace("\\", "/"); // git blame takes '/' as separator
-					br = git.blame().setFilePath( relativePath )
-							.setTextComparator(RawTextComparator.WS_IGNORE_ALL)
-							.call();
-					fileBlameMap.put( filePath, br );
-				}
-				// extract info from blame result
-				if( br != null ) {
-					PersonIdent person = br.getSourceAuthor( cm.getLineNum() );
-					cm.setAuthor( person.getName() );
-					cm.setDate( dateFormat.format(person.getWhen()) );
-				}
-			}
-		} catch( GitAPIException e ) { e.printStackTrace(); }
-	}
 
 }

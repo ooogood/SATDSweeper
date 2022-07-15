@@ -1,6 +1,6 @@
-package commentparser.util;
+package commentprocessor.util;
 
-import commentparser.configuration.Configuration;
+import commentprocessor.configuration.Configuration;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 
@@ -21,7 +21,7 @@ public class NodeUtil {
             Optional<CompilationUnit.Storage> storageOpt = compUnitOpt.get().getStorage();
             storageOpt.ifPresent(CompilationUnit.Storage::getDirectory);
             if (storageOpt.isPresent()) {
-                return configuration.getBaseDirs().stream().anyMatch(s -> storageOpt.get().getDirectory().startsWith(Paths.get(s)));
+                return configuration.getPath().stream().anyMatch(s -> storageOpt.get().getDirectory().startsWith(Paths.get(s)));
             }
         }
         return false;

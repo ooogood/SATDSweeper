@@ -1,65 +1,56 @@
-package commentparser.scanner;
+package commentprocessor.scanner;
 
 import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseException;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.comments.JavadocComment;
-import commentparser.marker.CommentElement;
-import commentparser.marker.CommentMarkerParser;
-import commentparser.configuration.Configuration;
-import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.Comment;
-import com.github.javaparser.symbolsolver.JavaSymbolSolver;
-import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
-import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
-import commentparser.util.NodeUtil;
 import lombok.Getter;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.blame.BlameResult;
+import org.eclipse.jgit.diff.RawTextComparator;
+import org.eclipse.jgit.lib.PersonIdent;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
-public class Scanner {
+public class LocalRepoScanner extends Scanner {
 
-    private volatile Configuration configuration;
+    public LocalRepoScanner( String pt, String bch, List<String> kws ) {
+        super( pt, bch, kws );
 
-    public Scanner() {
-        this(new Configuration());
-    }
-
-    public Scanner(Configuration configuration) {
-        this.configuration = configuration;
-
-        List<TypeSolver> typeSolvers = new ArrayList<>();
-        typeSolvers.add(new ReflectionTypeSolver());
-        this.configuration.getSourceRoots().stream()
-                .filter(s -> s != null && !s.isEmpty())
-                .forEach(s -> typeSolvers.add(new JavaParserTypeSolver(new File(s))));
-
-        TypeSolver[] typeSolversArray = new TypeSolver[typeSolvers.size()];
-        typeSolversArray = typeSolvers.toArray(typeSolversArray);
-        TypeSolver myTypeSolver = new CombinedTypeSolver(typeSolversArray);
-
-        JavaSymbolSolver symbolSolver = new JavaSymbolSolver(myTypeSolver);
-        StaticJavaParser.getConfiguration().setSymbolResolver(symbolSolver);
+        // try open git
+        File repo = new File( path + "\\.git" );
+        if( repo.isDirectory() ) {
+            try {
+                git = new Git( new FileRepositoryBuilder()
+                        .setGitDir( repo )
+                        .build() );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            // do nothing, repo is null
+            System.out.println("This path does not have .git folder.");
+        }
     }
 
     /**
      * Process all java file in the given directory and build environment.a CommentStore.
      *
      * @return CommentStore
-     * @throws IOException
      */
+    @Override
     public CommentStore parse() {
 
         List<Path> files = getFiles();
@@ -99,7 +90,7 @@ public class Scanner {
 
     private List<Path> getFiles() {
         List<Path> files = new ArrayList<>();
-        this.configuration.getBaseDirs().forEach(s -> {
+        this.configuration.getPath().forEach(s -> {
             try {
                 Stream<Path> walk = Files.walk(Paths.get(s));
                 files.addAll(walk.filter(path -> path.toString().endsWith(".java")).collect(Collectors.toList()));
@@ -110,16 +101,31 @@ public class Scanner {
         return files;
     }
 
-    private void processComments(Comment comment, ScannerContext arg) {
-        if (NodeUtil.isInBoundaries(arg.getConfiguration(), comment) ) {
-            CommentMarkerParser commentMarkerParser = new CommentMarkerParser(arg.getConfiguration(), arg.getConfiguration().getCommentMarkerConfiguration().getIncludeWithoutMarker());
-            CommentElement commentElement = commentMarkerParser.parse(comment);
-            if (commentElement != null) {
-                commentElement.setPath(arg.getCurrentPath());
-                commentElement.setRange(comment.getRange().orElse(null));
-                commentElement.setNodeDeclaration(comment.getCommentedNode().orElse(null));
-                arg.getCommentStore().addComment(commentElement.getMarker(), commentElement);
+    @Override
+    protected void blameComment(Git git, fx.satds_fx.Comment cm, Map<Path, BlameResult> fileBlameMap) {
+        try {
+            Path filePath = cm.getPath();
+            if( git != null ) {
+                BlameResult br = null;
+                if (fileBlameMap.containsKey(filePath))
+                    br = fileBlameMap.get(filePath);
+                else {
+                    String relativePath = filePath.toString()
+                            .replace(path+"\\", "" )
+                            .replace("\\", "/"); // git blame takes '/' as separator
+                    br = git.blame().setFilePath( relativePath )
+                            .setTextComparator(RawTextComparator.WS_IGNORE_ALL)
+                            .call();
+                    fileBlameMap.put( filePath, br );
+                }
+                // extract info from blame result
+                if( br != null ) {
+                    PersonIdent person = br.getSourceAuthor( cm.getLineNum() );
+                    cm.setAuthor( person.getName() );
+                    cm.setDate( dateFormat.format(person.getWhen()) );
+                }
             }
-        }
+        } catch( GitAPIException e ) { e.printStackTrace(); }
     }
+
 }

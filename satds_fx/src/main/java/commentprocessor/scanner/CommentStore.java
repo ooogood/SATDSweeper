@@ -1,6 +1,6 @@
-package commentparser.scanner;
+package commentprocessor.scanner;
 
-import commentparser.marker.CommentElement;
+import commentprocessor.marker.CommentElement;
 import lombok.Getter;
 
 import java.util.*;
@@ -28,7 +28,7 @@ public class CommentStore {
         }
     }
 
-    // sort comments by filname and line number
+    // sort comments by file name and line number
     public void sort() {
         Comparator<CommentElement> commentCompare = Comparator
                 .comparing((CommentElement o1) -> o1.getPath().getFileName())
