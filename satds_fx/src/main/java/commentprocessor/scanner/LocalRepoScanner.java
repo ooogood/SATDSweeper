@@ -5,6 +5,7 @@ import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.Comment;
+import fx.satds_fx.Model;
 import lombok.Getter;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -42,6 +43,7 @@ public class LocalRepoScanner extends Scanner {
         else {
             // do nothing, repo is null
             System.out.println("This path does not have .git folder.");
+            Model.getInst().setErrorMessage("This path does not have .git folder.", false );
         }
     }
 

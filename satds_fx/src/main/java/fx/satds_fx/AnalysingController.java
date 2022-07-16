@@ -43,6 +43,12 @@ public class AnalysingController implements Initializable {
         analyser_thread = new Thread( analyser );
         analyser_thread.start();
     }
+
+    public void initScannerEnd() {
+        Platform.runLater( ()->{
+            progressSign.setText("parsing comments...");
+        });
+    }
     public void parsingCommentsEnd() {
         Platform.runLater( ()->{
             progressSign.setText("classifying comments...");

@@ -6,6 +6,7 @@ import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.comments.JavadocComment;
+import fx.satds_fx.Model;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.blame.BlameResult;
@@ -44,10 +45,12 @@ public class RemoteRepoScanner extends Scanner {
             lastCommitId = repo.resolve("refs/heads/" + bch);
             if (lastCommitId == null) {
                 System.out.println("No such repository or branch");
+                Model.getInst().setErrorMessage("No such repository or branch", true );
             }
         }
-        catch (GitAPIException | IOException e ) {
+        catch ( Exception e ) {
             System.out.println("No such repository or branch");
+            Model.getInst().setErrorMessage("No such repository or branch", true );
         }
     }
 
@@ -60,6 +63,9 @@ public class RemoteRepoScanner extends Scanner {
     public CommentStore parse() {
 
         CommentStore commentStore = new CommentStore();
+        // return empty store if fetch unsuccessful
+        if( git == null || lastCommitId == null ) return commentStore;
+
         ScannerContext scannerContext = new ScannerContext(commentStore, this.configuration);
         try {
             RevWalk revWalk = new RevWalk(repo);
@@ -103,6 +109,7 @@ public class RemoteRepoScanner extends Scanner {
             }
         } catch ( IOException e ) {
             System.out.println("Cannot parse this branch");
+            Model.getInst().setErrorMessage("Cannot parse this branch", true );
         }
 
         commentStore.sort();

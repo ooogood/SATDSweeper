@@ -42,6 +42,7 @@ public class Analyser implements Runnable {
 
 	public void run() {
 		initScanner();
+		listener.initScannerEnd();
 
 		readAllComments();
 		listener.parsingCommentsEnd();
@@ -67,6 +68,7 @@ public class Analyser implements Runnable {
 
 	public void setTargetPath( String path ) {
 		targetPath = path;
+		// this is where we decide if it is a github repo
 		if( targetPath.startsWith("http") && targetPath.endsWith(".git") )
 			sourceType = 1;
 		else {

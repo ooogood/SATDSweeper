@@ -18,6 +18,8 @@ public class InputController implements Initializable {
     @FXML
     private TextField tarSrcPath;
     @FXML
+    private TextField branchName;
+    @FXML
     private ListView<String> keywordList;
 
     @Override
@@ -58,6 +60,7 @@ public class InputController implements Initializable {
         Analyser analyser = Model.getInst().getAnalyser();
         analyser.setTargetPath( tarSrcPath.getText() );
         analyser.setKeywordList( keywordList.getItems() );
+        analyser.setBranch( branchName.getText() );
         // switch to next scene
         Stage primary = Main.getPrimeStage();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("analysing.fxml"));

@@ -3,9 +3,12 @@ package fx.satds_fx;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -37,6 +40,8 @@ public class ManageController implements Initializable {
     TableColumn<Comment, String> col_priority;
     @FXML
     TableColumn<Comment, String> col_estimate;
+    @FXML
+    Label errorMessage;
 
     private ReportWriter rw = new ReportWriter();
 
@@ -59,6 +64,17 @@ public class ManageController implements Initializable {
             for( Comment cm : cms ) {
                 table.getItems().add( cm );
             }
+        }
+        // show error message
+        setErrorMessage(Model.getInst().getErrorMessage(), Model.getInst().getIsError());
+    }
+    public void setErrorMessage( String msg, boolean isError ) {
+        errorMessage.setText( msg );
+        if( isError ) {
+            errorMessage.setTextFill(Color.color(1.0,0,0));
+        }
+        else {
+            errorMessage.setTextFill(Color.color(0,1.0,0));
         }
     }
 
