@@ -25,29 +25,23 @@ public class Trainer {
 	private static String rscdir = System.getProperty("user.dir") +"\\satds_fx\\src\\main\\resources\\";
 	// if 3 out of 8 classifiers think it is a SATD, retain this
 	private static final double VOTE_THRESHOLD = 3.0;
+	private static List<String> projects = new ArrayList<String>(Arrays.asList(
+			"argouml", "columba-1.4-src","hibernate-distribution-3.3.2.GA",
+			"jEdit-4.2", "jfreechart-1.0.19","apache-jmeter-2.10","jruby-1.4.0",
+			"sql12"
+	));
 
 	public static void retrain() throws Exception {
-
-		List<String> projects = new ArrayList<String>();
-
-		projects.add("argouml");
-		projects.add("columba-1.4-src");
-		projects.add("hibernate-distribution-3.3.2.GA");
-		projects.add("jEdit-4.2");
-		projects.add("jfreechart-1.0.19");
-		projects.add("apache-jmeter-2.10");
-		projects.add("jruby-1.4.0");
-		projects.add("sql12");
 		
 		double ratio = 0.1;
 
 		List<Document> comments = DataReader.readComments(rscdir + "traindata\\" );
 
 		for (int source = 0; source < projects.size(); source++) {
-
+			String projectName = projects.get(source);
 
 			Set<String> projectForTraining = new HashSet<String>();
-			projectForTraining.add(projects.get(source));
+			projectForTraining.add(projectName);
 
 			// trainDoc: all comments from one project
 			List<Document> trainDoc = DataReader.selectProject(comments, projectForTraining);
@@ -86,7 +80,7 @@ public class Trainer {
 			trainSet = Filter.useFilter(trainSet, stw);
 			trainSet.setClassIndex(0);
 			// serialize StringToWordVector
-			SerializationHelper.write(rscdir + "classifiers\\" + projects.get(source) + ".stw", stw);
+			SerializationHelper.write(rscdir + "classifiers\\" + projectName + ".stw", stw);
 
 			// get attributeSelection object
 			AttributeSelection attSelection = new AttributeSelection();
@@ -98,30 +92,20 @@ public class Trainer {
 			attSelection.setInputFormat(trainSet);
 			trainSet = Filter.useFilter(trainSet, attSelection);
 			// serialize attributeSelection
-			SerializationHelper.write(rscdir + "classifiers\\" + projects.get(source) + ".slc", attSelection);
+			SerializationHelper.write(rscdir + "classifiers\\" + projectName + ".slc", attSelection);
 
 			// get classifier object
 			Classifier classifier = new NaiveBayesMultinomial();
 			classifier.buildClassifier(trainSet);
 			// serialize classifier
-			SerializationHelper.write( rscdir + "classifiers\\" + projects.get(source) + ".model", classifier );
+			SerializationHelper.write( rscdir + "classifiers\\" + projectName + ".model", classifier );
 
-			System.out.println(projects.get(source) + " training finished");
+			System.out.println(projectName + " training finished");
 		}
 		System.out.println("All training finished");
 	}
 
 	public static List<Long> classify(List<Comment> commentList) throws Exception {
-
-		List<String> projects = new ArrayList<String>();
-		projects.add("argouml");
-		projects.add("columba-1.4-src");
-		projects.add("hibernate-distribution-3.3.2.GA");
-		projects.add("jEdit-4.2");
-		projects.add("jfreechart-1.0.19");
-		projects.add("apache-jmeter-2.10");
-		projects.add("jruby-1.4.0");
-		projects.add("sql12");
 
 		// read comments, tokenize and put the results are in Document.words
 		List<Document> targetDoc = DataReader.readComments( commentList );
@@ -136,19 +120,22 @@ public class Trainer {
 
 		// go through each classifier and get vote
 		for (int source = 0; source < projects.size(); source++) {
+
+			String projectName = projects.get(source);
+
 			// string to word vector
 			// the stw contains stopwords and stemmer
 			Instances tarSet = DataSource.read(targetDataPath);
-			StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\" + projects.get(source) + ".stw");
+			StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\" + projectName + ".stw");
 			tarSet = Filter.useFilter(tarSet, stw);
 			tarSet.setClassIndex(0);
 
 			// attribute selection
-			AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\" + projects.get(source) + ".slc" );
+			AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\" + projectName + ".slc" );
 			tarSet = Filter.useFilter(tarSet, attSelection);
 
 			// classifier
-			Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\" + projects.get(source) + ".model" );
+			Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\" + projectName + ".model" );
 
 			for (int i = 0; i < tarSet.numInstances(); i++) {
 				// assert: instance has the same order with commentList
