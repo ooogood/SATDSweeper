@@ -118,6 +118,7 @@ public class Analyser implements Runnable {
 		List<Comment> commentList = new ArrayList<>( unmarked );
 		try {
 			List<Long> tobeRemove = Trainer.classify( commentList );
+//			List<Long> tobeRemove = Trainer.classifyWithOneClassifier( commentList );
 			for( Long i : tobeRemove ) {
 				db.remove( commentList.get( i.intValue() ).getId() );
 			}
