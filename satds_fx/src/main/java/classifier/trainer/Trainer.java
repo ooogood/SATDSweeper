@@ -172,26 +172,26 @@ public class Trainer {
 		EnsembleLearner eLearner = new EnsembleLearner(tmp);
 
 
-			// string to word vector
-			// the stw contains stopwords and stemmer
-			Instances tarSet = DataSource.read(targetDataPath);
-			StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\total.stw");
-			tarSet = Filter.useFilter(tarSet, stw);
-			tarSet.setClassIndex(0);
+		// string to word vector
+		// the stw contains stopwords and stemmer
+		Instances tarSet = DataSource.read(targetDataPath);
+		StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\total_p4.stw");
+		tarSet = Filter.useFilter(tarSet, stw);
+		tarSet.setClassIndex(0);
 
-			// attribute selection
-			AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\total.slc" );
-			tarSet = Filter.useFilter(tarSet, attSelection);
+		// attribute selection
+		AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\total_p4.slc" );
+		tarSet = Filter.useFilter(tarSet, attSelection);
 
-			// classifier
-			Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\total.model" );
+		// classifier
+		Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\total_p4.model" );
 
-			for (int i = 0; i < tarSet.numInstances(); i++) {
-				// assert: instance has the same order with commentList
-				Instance instance = tarSet.instance(i);
-				if (classifier.classifyInstance(instance) == 1.0)
-					eLearner.vote(i, 1.0 );
-			}
+		for (int i = 0; i < tarSet.numInstances(); i++) {
+			// assert: instance has the same order with commentList
+			Instance instance = tarSet.instance(i);
+			if (classifier.classifyInstance(instance) == 1.0)
+				eLearner.vote(i, 1.0 );
+		}
 
 
 		// remove negative vote comments from dataset
