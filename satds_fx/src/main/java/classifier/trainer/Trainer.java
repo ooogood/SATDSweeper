@@ -31,8 +31,9 @@ public class Trainer {
 			"sql12"
 	));
 
+	// this class will retrain the .stw, .slc, .model files of the projects listed above.
 	public static void retrain() throws Exception {
-		
+		// feature selection ratio
 		double ratio = 0.1;
 
 		List<Document> comments = DataReader.readComments(rscdir + "traindata\\".replace("\\", File.separator) );
@@ -175,16 +176,16 @@ public class Trainer {
 		// string to word vector
 		// the stw contains stopwords and stemmer
 		Instances tarSet = DataSource.read(targetDataPath);
-		StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\total_p4.stw".replace("\\", File.separator));
+		StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\total.stw".replace("\\", File.separator));
 		tarSet = Filter.useFilter(tarSet, stw);
 		tarSet.setClassIndex(0);
 
 		// attribute selection
-		AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\total_p4.slc".replace("\\", File.separator) );
+		AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\total.slc".replace("\\", File.separator) );
 		tarSet = Filter.useFilter(tarSet, attSelection);
 
 		// classifier
-		Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\total_p4.model".replace("\\", File.separator) );
+		Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\total.model".replace("\\", File.separator) );
 
 		for (int i = 0; i < tarSet.numInstances(); i++) {
 			// assert: instance has the same order with commentList
