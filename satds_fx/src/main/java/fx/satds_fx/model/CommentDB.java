@@ -1,4 +1,4 @@
-package fx.satds_fx;
+package fx.satds_fx.model;
 
 import java.nio.file.Path;
 import java.util.*;

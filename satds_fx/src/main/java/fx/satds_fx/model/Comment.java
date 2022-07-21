@@ -1,4 +1,4 @@
-package fx.satds_fx;
+package fx.satds_fx.model;
 
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;

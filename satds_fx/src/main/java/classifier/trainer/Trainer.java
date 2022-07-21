@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.*;
 
 import classifier.process.DataReader;
-import fx.satds_fx.Comment;
+import fx.satds_fx.model.Comment;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;

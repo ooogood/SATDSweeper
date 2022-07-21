@@ -1,6 +1,9 @@
-package fx.satds_fx;
+package fx.satds_fx.controller;
 
-import javafx.collections.ObservableList;
+import fx.satds_fx.*;
+import fx.satds_fx.model.Comment;
+import fx.satds_fx.model.CommentDB;
+import fx.satds_fx.model.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -8,7 +11,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 

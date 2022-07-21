@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.Set;
 
 import commentprocessor.marker.CommentMarkerParser;
+import fx.satds_fx.model.Comment;
+import fx.satds_fx.model.CommentDB;
+import fx.satds_fx.model.Model;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;

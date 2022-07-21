@@ -1,10 +1,7 @@
 package fx.satds_fx;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -12,20 +9,16 @@ import java.util.*;
 
 
 import classifier.trainer.Trainer;
-import commentprocessor.configuration.Configuration;
-import commentprocessor.configuration.CommentMarkerConfiguration;
 import commentprocessor.marker.CommentMarkerParser;
 import commentprocessor.scanner.LocalRepoScanner;
 import commentprocessor.scanner.RemoteRepoScanner;
 import commentprocessor.scanner.Scanner;
 import commentprocessor.scanner.CommentStore;
 import commentprocessor.marker.CommentElement;
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.blame.BlameResult;
-import org.eclipse.jgit.diff.RawTextComparator;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import fx.satds_fx.controller.AnalysingController;
+import fx.satds_fx.model.Comment;
+import fx.satds_fx.model.CommentDB;
+import fx.satds_fx.model.Model;
 
 
 public class Analyser implements Runnable {

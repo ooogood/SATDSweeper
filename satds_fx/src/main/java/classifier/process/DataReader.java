@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import classifier.util.FileUtil;
 import classifier.domain.Document;
-import fx.satds_fx.Comment;
+import fx.satds_fx.model.Comment;
 
 public class DataReader {
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.satds_fx.AnalysingController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.satds_fx.controller.AnalysingController">
     <children>
         <Button fx:id="next" layoutX="662.0" layoutY="542.0" mnemonicParsing="false" onAction="#onNextButtonClick" prefHeight="26.0" prefWidth="108.0" text="Next" AnchorPane.bottomAnchor="31.6" AnchorPane.rightAnchor="30.0" />
       <ImageView fx:id="loading" fitHeight="326.0" fitWidth="492.0" layoutX="156.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="171.39999999999998" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="152.0" AnchorPane.topAnchor="102.60000000000002">

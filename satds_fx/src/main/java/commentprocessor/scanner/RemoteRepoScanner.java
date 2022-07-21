@@ -6,7 +6,7 @@ import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.comments.JavadocComment;
-import fx.satds_fx.Model;
+import fx.satds_fx.model.Model;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.blame.BlameResult;
@@ -117,7 +117,7 @@ public class RemoteRepoScanner extends Scanner {
     }
 
     @Override
-    protected void blameComment(Git git, fx.satds_fx.Comment cm, Map<Path, BlameResult> fileBlameMap) {
+    protected void blameComment(Git git, fx.satds_fx.model.Comment cm, Map<Path, BlameResult> fileBlameMap) {
         try {
             Path filePath = cm.getPath();
             if( git != null ) {

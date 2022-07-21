@@ -1,5 +1,8 @@
-package fx.satds_fx;
+package fx.satds_fx.controller;
 
+import fx.satds_fx.Analyser;
+import fx.satds_fx.Main;
+import fx.satds_fx.model.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;

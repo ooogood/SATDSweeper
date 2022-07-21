@@ -1,4 +1,6 @@
-package fx.satds_fx;
+package fx.satds_fx.model;
+
+import fx.satds_fx.Analyser;
 
 /** Singleton Model */
 public class Model {

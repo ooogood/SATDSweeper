@@ -1,9 +1,11 @@
-package fx.satds_fx;
+package fx.satds_fx.controller;
 
+import fx.satds_fx.Analyser;
+import fx.satds_fx.Main;
+import fx.satds_fx.model.Model;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

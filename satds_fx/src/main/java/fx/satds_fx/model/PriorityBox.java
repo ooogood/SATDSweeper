@@ -1,4 +1,4 @@
-package fx.satds_fx;
+package fx.satds_fx.model;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;

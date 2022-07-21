@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.satds_fx.ManageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.satds_fx.controller.ManageController">
     <children>
         <Button layoutX="662.0" layoutY="542.0" mnemonicParsing="false" onAction="#onGenerateButtonClick" prefHeight="26.0" prefWidth="108.0" text="Generate" AnchorPane.bottomAnchor="31.6" AnchorPane.rightAnchor="30.0" />
     <AnchorPane layoutX="20.0" layoutY="18.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="955.0" AnchorPane.bottomAnchor="71.60000000000002" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">

@@ -11,11 +11,9 @@ import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
-import commentprocessor.util.NodeUtil;
-import fx.satds_fx.CommentDB;
+import fx.satds_fx.model.CommentDB;
 import lombok.Getter;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.blame.BlameResult;
 
 import java.io.File;
@@ -95,11 +93,11 @@ public abstract class Scanner {
         // <path to file, blame result>
         Map<Path, BlameResult> fileBlameMap = new LinkedHashMap<>();
         for( String kw : kwSet ) {
-            Set<fx.satds_fx.Comment> comments = db.getKeywordGroup( kw );
-            for( fx.satds_fx.Comment cm : comments ) {
+            Set<fx.satds_fx.model.Comment> comments = db.getKeywordGroup( kw );
+            for( fx.satds_fx.model.Comment cm : comments ) {
                 blameComment( git, cm, fileBlameMap );
             }
         }
     }
-    protected abstract void blameComment(Git git, fx.satds_fx.Comment cm, Map<Path, BlameResult> fileBlameMap );
+    protected abstract void blameComment(Git git, fx.satds_fx.model.Comment cm, Map<Path, BlameResult> fileBlameMap );
 }

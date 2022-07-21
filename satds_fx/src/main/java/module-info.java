@@ -18,4 +18,8 @@ module fx.satds_fx {
 
     opens fx.satds_fx to javafx.fxml;
     exports fx.satds_fx;
+    exports fx.satds_fx.controller;
+    opens fx.satds_fx.controller to javafx.fxml;
+    exports fx.satds_fx.model;
+    opens fx.satds_fx.model to javafx.fxml;
 }
