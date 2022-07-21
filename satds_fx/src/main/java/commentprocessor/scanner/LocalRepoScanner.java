@@ -30,7 +30,7 @@ public class LocalRepoScanner extends Scanner {
         super( pt, bch, kws );
 
         // try open git
-        File repo = new File( path + "\\.git" );
+        File repo = new File( path + "\\.git".replace("\\", File.separator) );
         if( repo.isDirectory() ) {
             try {
                 git = new Git( new FileRepositoryBuilder()
@@ -113,7 +113,7 @@ public class LocalRepoScanner extends Scanner {
                     br = fileBlameMap.get(filePath);
                 else {
                     String relativePath = filePath.toString()
-                            .replace(path+"\\", "" )
+                            .replace(path+File.separator, "" )
                             .replace("\\", "/"); // git blame takes '/' as separator
                     br = git.blame().setFilePath( relativePath )
                             .setTextComparator(RawTextComparator.WS_IGNORE_ALL)

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -18,7 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("SATDSweeper");
-        stage.getIcons().add( new Image(System.getProperty("user.dir") +"\\satds_fx\\src\\main\\resources\\fx\\satds_fx\\Icon.png"));
+        stage.getIcons().add( new Image((System.getProperty("user.dir") +"\\satds_fx\\src\\main\\resources\\fx\\satds_fx\\Icon.png").replace("\\", File.separator)));
         primary = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("input.fxml"));
         Scene scene = new Scene( fxmlLoader.load() );

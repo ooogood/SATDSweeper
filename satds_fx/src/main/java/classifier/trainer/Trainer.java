@@ -22,7 +22,7 @@ import classifier.domain.Document;
 import classifier.model.EnsembleLearner;
 
 public class Trainer {
-	private static String rscdir = System.getProperty("user.dir") +"\\satds_fx\\src\\main\\resources\\";
+	private static String rscdir = (System.getProperty("user.dir") +"\\satds_fx\\src\\main\\resources\\").replace("\\", File.separator);
 	// if 3 out of 8 classifiers think it is a SATD, retain this
 	private static final double VOTE_THRESHOLD = 3.0;
 	private static List<String> projects = new ArrayList<String>(Arrays.asList(
@@ -35,7 +35,7 @@ public class Trainer {
 		
 		double ratio = 0.1;
 
-		List<Document> comments = DataReader.readComments(rscdir + "traindata\\" );
+		List<Document> comments = DataReader.readComments(rscdir + "traindata\\".replace("\\", File.separator) );
 
 		for (int source = 0; source < projects.size(); source++) {
 			String projectName = projects.get(source);
@@ -46,11 +46,11 @@ public class Trainer {
 			// trainDoc: all comments from one project
 			List<Document> trainDoc = DataReader.selectProject(comments, projectForTraining);
 
-			String trainingDataPath = rscdir + "traindata\\tmpTrainingData.arff";
+			String trainingDataPath = rscdir + "traindata\\tmpTrainingData.arff".replace("\\", File.separator);
 			DataReader.outputArffData(trainDoc, trainingDataPath);
 
 //			// put data into column format for coreNLP classifier
-//			String columnDataPath = rscdir + "traindata\\" + projects.get(source) + ".train";
+//			String columnDataPath = rscdir + "traindata\\".replace("\\", File.separator) + projects.get(source) + ".train";
 //			DataReader.outputColumnData(trainDoc, columnDataPath);
 
 			// get StringToWordVector object
@@ -72,7 +72,7 @@ public class Trainer {
 			stw.setStemmer(stemmer);
 			// stw filter the stopwords
 			WordsFromFile stopwords = new WordsFromFile();
-			stopwords.setStopwords(new File(rscdir + "traindata\\stopwords.txt"));
+			stopwords.setStopwords(new File(rscdir + "traindata\\stopwords.txt".replace("\\", File.separator)));
 			stw.setStopwordsHandler(stopwords);
 			// filter the training data to create dictionary
 			Instances trainSet = DataSource.read(trainingDataPath);
@@ -80,7 +80,7 @@ public class Trainer {
 			trainSet = Filter.useFilter(trainSet, stw);
 			trainSet.setClassIndex(0);
 			// serialize StringToWordVector
-			SerializationHelper.write(rscdir + "classifiers\\" + projectName + ".stw", stw);
+			SerializationHelper.write(rscdir + "classifiers\\".replace("\\", File.separator) + projectName + ".stw", stw);
 
 			// get attributeSelection object
 			AttributeSelection attSelection = new AttributeSelection();
@@ -92,13 +92,13 @@ public class Trainer {
 			attSelection.setInputFormat(trainSet);
 			trainSet = Filter.useFilter(trainSet, attSelection);
 			// serialize attributeSelection
-			SerializationHelper.write(rscdir + "classifiers\\" + projectName + ".slc", attSelection);
+			SerializationHelper.write(rscdir + "classifiers\\".replace("\\", File.separator) + projectName + ".slc", attSelection);
 
 			// get classifier object
 			Classifier classifier = new NaiveBayesMultinomial();
 			classifier.buildClassifier(trainSet);
 			// serialize classifier
-			SerializationHelper.write( rscdir + "classifiers\\" + projectName + ".model", classifier );
+			SerializationHelper.write( rscdir + "classifiers\\".replace("\\", File.separator) + projectName + ".model", classifier );
 
 			System.out.println(projectName + " training finished");
 		}
@@ -110,7 +110,7 @@ public class Trainer {
 		// read comments, tokenize and put the results are in Document.words
 		List<Document> targetDoc = DataReader.readComments( commentList );
 		// put tokens into arff file
-		String targetDataPath = rscdir + "traindata\\targetData.arff";
+		String targetDataPath = rscdir + "traindata\\targetData.arff".replace("\\", File.separator);
 		DataReader.outputArffData(targetDoc, targetDataPath);
 
 		// read arff file as Instances
@@ -126,16 +126,16 @@ public class Trainer {
 			// string to word vector
 			// the stw contains stopwords and stemmer
 			Instances tarSet = DataSource.read(targetDataPath);
-			StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\" + projectName + ".stw");
+			StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\".replace("\\", File.separator) + projectName + ".stw");
 			tarSet = Filter.useFilter(tarSet, stw);
 			tarSet.setClassIndex(0);
 
 			// attribute selection
-			AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\" + projectName + ".slc" );
+			AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\".replace("\\", File.separator) + projectName + ".slc" );
 			tarSet = Filter.useFilter(tarSet, attSelection);
 
 			// classifier
-			Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\" + projectName + ".model" );
+			Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\".replace("\\", File.separator) + projectName + ".model" );
 
 			for (int i = 0; i < tarSet.numInstances(); i++) {
 				// assert: instance has the same order with commentList
@@ -163,7 +163,7 @@ public class Trainer {
 		// read comments, tokenize and put the results are in Document.words
 		List<Document> targetDoc = DataReader.readComments( commentList );
 		// put tokens into arff file
-		String targetDataPath = rscdir + "traindata\\targetData.arff";
+		String targetDataPath = rscdir + "traindata\\targetData.arff".replace("\\", File.separator);
 		DataReader.outputArffData(targetDoc, targetDataPath);
 
 		// read arff file as Instances
@@ -175,16 +175,16 @@ public class Trainer {
 		// string to word vector
 		// the stw contains stopwords and stemmer
 		Instances tarSet = DataSource.read(targetDataPath);
-		StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\total_p4.stw");
+		StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\total_p4.stw".replace("\\", File.separator));
 		tarSet = Filter.useFilter(tarSet, stw);
 		tarSet.setClassIndex(0);
 
 		// attribute selection
-		AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\total_p4.slc" );
+		AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\total_p4.slc".replace("\\", File.separator) );
 		tarSet = Filter.useFilter(tarSet, attSelection);
 
 		// classifier
-		Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\total_p4.model" );
+		Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\total_p4.model".replace("\\", File.separator) );
 
 		for (int i = 0; i < tarSet.numInstances(); i++) {
 			// assert: instance has the same order with commentList
