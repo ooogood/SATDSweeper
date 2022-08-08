@@ -14,9 +14,6 @@ public class Document implements Comparable<Document>{
 	
 	private String project,label;
 	
-	private Map<String,Double> tf;
-	private Map<String,Double> tf_idf;
-	
 	double scoreForRank;
 	
 	public int compareTo(Document doc){
@@ -32,33 +29,17 @@ public class Document implements Comparable<Document>{
 		// tokenisation
 		this.words=WordSplit.split(content);
 		
-		//build term frequency
-		this.tf = new HashMap<String,Double>();
-		for(String word:this.words){
-			if(tf.containsKey(word))
-				tf.put(word, tf.get(word)+1);
-			else tf.put(word, 1.0);
-		}
-		//normalize tf
-		for(Map.Entry<String, Double> entry:this.tf.entrySet()){
-			entry.setValue(entry.getValue()*1.0/this.words.size());			
-		}
+
 	}
 
 	public List<String> getWords() {
 		return words;
-	}
-	public void setWords(List<String> words) {
-		this.words = words;
 	}
 
 	public String getContent() {
 		return content;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
 
 	public String getProject() {
 		return project;
@@ -76,30 +57,7 @@ public class Document implements Comparable<Document>{
 		this.label = label;
 	}
 
-	public Map<String, Double> getTf() {
-		return tf;
-	}
 
-	public void setTf(Map<String, Double> tf) {
-		this.tf = tf;
-	}
-
-	public Map<String, Double> getTf_idf() {
-		return tf_idf;
-	}
-
-	public void setTf_idf(Map<String, Double> tf_idf) {
-		this.tf_idf = tf_idf;
-	}
-
-	public double getScoreForRank() {
-		return scoreForRank;
-	}
-
-	public void setScoreForRank(double scoreForRank) {
-		this.scoreForRank = scoreForRank;
-	}
-	
 	
 	
 
