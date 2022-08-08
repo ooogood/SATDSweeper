@@ -1,4 +1,4 @@
-package fx.satds_fx;
+package fx.satds_fx.model;
 
 import java.io.File;
 import java.nio.file.attribute.FileTime;

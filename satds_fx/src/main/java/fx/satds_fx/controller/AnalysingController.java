@@ -1,6 +1,6 @@
 package fx.satds_fx.controller;
 
-import fx.satds_fx.Analyser;
+import fx.satds_fx.model.Analyser;
 import fx.satds_fx.Main;
 import fx.satds_fx.model.Model;
 import javafx.application.Platform;
