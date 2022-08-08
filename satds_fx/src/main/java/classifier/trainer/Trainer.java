@@ -159,51 +159,51 @@ public class Trainer {
 	}
 
 	// classify without ensemble method
-	public static List<Long> classifyWithOneClassifier(List<Comment> commentList) throws Exception {
+	// public static List<Long> classifyWithOneClassifier(List<Comment> commentList) throws Exception {
 
-		// read comments, tokenize and put the results are in Document.words
-		List<Document> targetDoc = DataReader.readComments( commentList );
-		// put tokens into arff file
-		String targetDataPath = rscdir + "traindata\\targetData.arff".replace("\\", File.separator);
-		DataReader.outputArffData(targetDoc, targetDataPath);
+	// 	// read comments, tokenize and put the results are in Document.words
+	// 	List<Document> targetDoc = DataReader.readComments( commentList );
+	// 	// put tokens into arff file
+	// 	String targetDataPath = rscdir + "traindata\\targetData.arff".replace("\\", File.separator);
+	// 	DataReader.outputArffData(targetDoc, targetDataPath);
 
-		// read arff file as Instances
-		Instances tmp = DataSource.read(targetDataPath);
-		tmp.setClassIndex(1);
-		EnsembleLearner eLearner = new EnsembleLearner(tmp);
-
-
-		// string to word vector
-		// the stw contains stopwords and stemmer
-		Instances tarSet = DataSource.read(targetDataPath);
-		StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\total.stw".replace("\\", File.separator));
-		tarSet = Filter.useFilter(tarSet, stw);
-		tarSet.setClassIndex(0);
-
-		// attribute selection
-		AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\total.slc".replace("\\", File.separator) );
-		tarSet = Filter.useFilter(tarSet, attSelection);
-
-		// classifier
-		Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\total.model".replace("\\", File.separator) );
-
-		for (int i = 0; i < tarSet.numInstances(); i++) {
-			// assert: instance has the same order with commentList
-			Instance instance = tarSet.instance(i);
-			if (classifier.classifyInstance(instance) == 1.0)
-				eLearner.vote(i, 1.0 );
-		}
+	// 	// read arff file as Instances
+	// 	Instances tmp = DataSource.read(targetDataPath);
+	// 	tmp.setClassIndex(1);
+	// 	EnsembleLearner eLearner = new EnsembleLearner(tmp);
 
 
-		// remove negative vote comments from dataset
-		double[] votes = eLearner.getVote();
-		List<Long> tobeRemove = new ArrayList<>();
-		// ^^^^ breakpoint here to see the score and the comments
-		for( int i = 0; i < votes.length; ++i ) {
-			if( votes[i] < 1 )
-				tobeRemove.add( Long.valueOf( i ) );
-		}
-		return tobeRemove;
-	}
+	// 	// string to word vector
+	// 	// the stw contains stopwords and stemmer
+	// 	Instances tarSet = DataSource.read(targetDataPath);
+	// 	StringToWordVector stw = (StringToWordVector)SerializationHelper.read(rscdir + "classifiers\\total.stw".replace("\\", File.separator));
+	// 	tarSet = Filter.useFilter(tarSet, stw);
+	// 	tarSet.setClassIndex(0);
+
+	// 	// attribute selection
+	// 	AttributeSelection attSelection = (AttributeSelection)SerializationHelper.read( rscdir + "classifiers\\total.slc".replace("\\", File.separator) );
+	// 	tarSet = Filter.useFilter(tarSet, attSelection);
+
+	// 	// classifier
+	// 	Classifier classifier = (Classifier) SerializationHelper.read( rscdir + "classifiers\\total.model".replace("\\", File.separator) );
+
+	// 	for (int i = 0; i < tarSet.numInstances(); i++) {
+	// 		// assert: instance has the same order with commentList
+	// 		Instance instance = tarSet.instance(i);
+	// 		if (classifier.classifyInstance(instance) == 1.0)
+	// 			eLearner.vote(i, 1.0 );
+	// 	}
+
+
+	// 	// remove negative vote comments from dataset
+	// 	double[] votes = eLearner.getVote();
+	// 	List<Long> tobeRemove = new ArrayList<>();
+	// 	// ^^^^ breakpoint here to see the score and the comments
+	// 	for( int i = 0; i < votes.length; ++i ) {
+	// 		if( votes[i] < 1 )
+	// 			tobeRemove.add( Long.valueOf( i ) );
+	// 	}
+	// 	return tobeRemove;
+	// }
 
 }
