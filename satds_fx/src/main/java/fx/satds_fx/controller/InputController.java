@@ -8,11 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.TextFieldListCell;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +56,27 @@ public class InputController implements Initializable {
             keywordList.getItems().remove( idx );
         }
     }
+
+    /* target source code path */
+    @FXML
+    protected void onBrowseKeyButtonClick() {
+        // get directory path for target source code
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Select keyword list");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv") );
+        File selectedDirectory = fc.showOpenDialog(Main.getPrimeStage());
+        try {
+            String rawKeywordList = Files.readString(selectedDirectory.toPath());
+            String[] keywords = rawKeywordList.split( ",");
+            for( String k : keywords ) {
+                keywordList.getItems().add( k );
+            }
+        } catch (Exception e ) {
+            // do nothing
+        }
+    }
+
     /* next */
     @FXML
     protected void onAnalyseButtonClick() throws IOException {

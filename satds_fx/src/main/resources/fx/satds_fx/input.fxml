@@ -31,5 +31,6 @@
          </font>
       </Label>
       <TextField fx:id="branchName" layoutX="132.0" layoutY="75.0" prefHeight="26.0" prefWidth="195.0" promptText="necessary for github repository" />
+      <Button layoutX="744.0" layoutY="486.0" mnemonicParsing="false" onAction="#onBrowseKeyButtonClick" prefHeight="26.0" prefWidth="26.0" text="..." />
     </children>
 </AnchorPane>
