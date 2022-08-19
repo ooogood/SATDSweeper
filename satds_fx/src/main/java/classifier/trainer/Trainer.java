@@ -9,6 +9,7 @@ import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
 import weka.classifiers.bayes.NaiveBayesMultinomial;
+import weka.classifiers.functions.SMO;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
@@ -96,6 +97,7 @@ public class Trainer {
 			SerializationHelper.write(rscdir + "classifiers\\".replace("\\", File.separator) + projectName + ".slc", attSelection);
 
 			// get classifier object
+//			Classifier classifier = new SMO();
 			Classifier classifier = new NaiveBayesMultinomial();
 			classifier.buildClassifier(trainSet);
 			// serialize classifier
